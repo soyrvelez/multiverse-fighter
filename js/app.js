@@ -11,7 +11,7 @@ const GameViewport = {
 }
 
 // Ensure page loads before code runs
-window.onload = function () {
+window.addEventListener('load', function () {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -25,25 +25,32 @@ window.onload = function () {
         new FpsCounter(),
     ];
 
+    let frameTime = {
+        previous: 0,
+        secondsPassed: 0,
+    };
+
     // Setting up refresh rate variables
     let previousTime = 0;
     let secondsPassed = 0;
 
     // animation function
     function frame(time) {
-        secondsPassed = (time - previousTime) / 1000;
-        previousTime = time;
+        window.requestAnimationFrame(frame);
 
+        frameTime = {
+            secondsPassed: (time - frameTime.previous) / 1000,
+            previous: time,
+        }
         for (const entity of entities) {
-            entity.update(secondsPassed, ctx);
+            entity.update(frameTime, ctx);
         }
 
         for (const entity of entities) {
             entity.draw(ctx);
         }
-
-        window.requestAnimationFrame(frame);
     }
     //requests animation at monitor's refresh rate
     window.requestAnimationFrame(frame);
 }
+);
