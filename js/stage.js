@@ -1,5 +1,9 @@
-const background = document.querySelector('img[alt="background"]');
+export class Stage {
+    constructor() {
+        this.image = document.querySelector('img[alt="background"]');
+    }
 
-export function drawBackground(ctx) {
-    ctx.drawImage(background, 0, 0);
+    draw(ctx) {
+        ctx.drawImage(background, 0, 0);
+    }
 }

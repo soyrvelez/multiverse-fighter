@@ -1,7 +1,7 @@
 // import entity functions from entity modules
-import { drawRyu, updateRyu } from './character1.js';
-import { drawBackground } from './stage.js';
-
+import { Ryu } from './Ryu.js';
+import { Stage } from './Stage.js';
+import { Venom } from './Venom.js';
 //Defining Game Screen Dimensions
 const GameViewport = {
     width: 384,
@@ -16,12 +16,18 @@ window.onload = function () {
     canvas.width = GameViewport.width;
     canvas.height = GameViewport.height;
 
+    const ryu = new Ryu(80, 110, 1);
+    const venom = new Venom(80, 82, -1);
+    const stage = new Stage();
+
     // animation function
     function frame() {
-        updateRyu(ctx);
+        ryu.update(ctx);
+        venom.update(ctx);
 
-        drawBackground(ctx);
-        drawRyu(ctx);
+        stage.draw(ctx);
+        ryu.draw(ctx);
+        venom.draw(ctx);
 
         window.requestAnimationFrame(frame);
     }
