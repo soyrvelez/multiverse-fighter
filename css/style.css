@@ -4,9 +4,20 @@ html, body {
 }
 
 body {
+    display: flex;
+}
+
+body, canvas {
     background-color: black;
 }
 
 canvas {
-    background-color: yellow;
+    width: 100%;
+    object-fit: contain;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
+img {
+    display: none;
 }
