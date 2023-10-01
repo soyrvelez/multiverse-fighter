@@ -1,7 +1,9 @@
 // import entity functions from entity modules
-import { Ryu } from './Ryu.js';
-import { Stage } from './Stage.js';
-import { Venom } from './Venom.js';
+import { Ryu } from './entities/characters/Ryu.js';
+import { Stage } from './entities/Stage.js';
+import { Venom } from './entities/characters/Venom.js';
+import { FpsCounter } from './entities/FpsCounter.js';
+
 //Defining Game Screen Dimensions
 const GameViewport = {
     width: 384,
@@ -16,18 +18,29 @@ window.onload = function () {
     canvas.width = GameViewport.width;
     canvas.height = GameViewport.height;
 
-    const ryu = new Ryu(80, 110, 1);
-    const venom = new Venom(80, 82, -1);
-    const stage = new Stage();
+    const entities = [
+        new Stage(),
+        new Ryu(80, 110, 150),
+        new Venom(80, 82, -150),
+        new FpsCounter(),
+    ];
+
+    // Setting up refresh rate variables
+    let previousTime = 0;
+    let secondsPassed = 0;
 
     // animation function
-    function frame() {
-        ryu.update(ctx);
-        venom.update(ctx);
+    function frame(time) {
+        secondsPassed = (time - previousTime) / 1000;
+        previousTime = time;
 
-        stage.draw(ctx);
-        ryu.draw(ctx);
-        venom.draw(ctx);
+        for (const entity of entities) {
+            entity.update(secondsPassed, ctx);
+        }
+
+        for (const entity of entities) {
+            entity.draw(ctx);
+        }
 
         window.requestAnimationFrame(frame);
     }

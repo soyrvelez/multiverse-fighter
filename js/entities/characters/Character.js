@@ -6,8 +6,8 @@ export class Character {
         this.velocity = velocity;
     }
 
-    update(ctx) {
-        this.position.x += this.velocity;
+    update(secondsPassed, ctx) {
+        this.position.x += this.velocity * secondsPassed;
 
         if (this.position.x > ctx.canvas.width - this.image.width || this.position.x < 0) {
             this.velocity = -this.velocity;
