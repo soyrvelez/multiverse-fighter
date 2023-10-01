@@ -1,3 +1,7 @@
+// import entity functions from entity modules
+import { drawRyu, updateRyu } from './character1.js';
+import { drawBackground } from './stage.js';
+
 //Defining Game Screen Dimensions
 const GameViewport = {
     width: 384,
@@ -12,30 +16,15 @@ window.onload = function () {
     canvas.width = GameViewport.width;
     canvas.height = GameViewport.height;
 
-    const [ryu, background] = document.querySelectorAll('img');
-    const position = {
-        x: GameViewport.width / 2 - ryu.width / 2,
-        y: 110
-    };
-
-    let velocity = 1;
-
     // animation function
     function frame() {
-        position.x += velocity;
+        updateRyu(ctx);
 
-        // check for x axis boundaries
-        if (position.x > GameViewport.width - ryu.width || position.x < 0) {
-            velocity = -velocity;
-        }
-
-        ctx.drawImage(background, 0, 0);
-        ctx.drawImage(ryu, position.x, position.y);
+        drawBackground(ctx);
+        drawRyu(ctx);
 
         window.requestAnimationFrame(frame);
     }
-
-    //requests animation
+    //requests animation at monitor's refresh rate
     window.requestAnimationFrame(frame);
-
 }
