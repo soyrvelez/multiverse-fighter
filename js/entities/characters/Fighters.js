@@ -11,6 +11,17 @@ export class Character {
         this.animationTimer = 0;
         this.animations = {};
         this.state = this.changeState();
+
+        this.states = {
+            [FighterState.WALK_FORWARD]: {
+                init: () => {},
+                update: () => {},
+            },
+            [FighterState.WALK_BACKWARD]: {
+                init: () => {},
+                update: () => {},
+            },
+        }
     }
 
     changeState = () => this.velocity * this.direction < 0 ? FighterState.WALK_BACKWARD : FighterState.WALK_FORWARD;
