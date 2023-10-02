@@ -10,7 +10,7 @@ export class Character {
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
-        this.currentState = this.changeState();
+        this.currentState = FighterState.WALK_FORWARD;
 
         this.states = {
             [FighterState.WALK_FORWARD]: {
@@ -18,52 +18,61 @@ export class Character {
                 update: this.handleWalkForwardState.bind(this),
             },
             [FighterState.WALK_BACKWARD]: {
-                init: this.handleWalkBackwardInit.bind(this),
-                update: this.handleWalkBackwardState.bind(this),
+                init: this.handleWalkBackwardsInit.bind(this),
+                update: this.handleWalkBackwardsState.bind(this),
             },
         }
     }
 
-    changeState = () => this.velocity * this.direction < 0 ? FighterState.WALK_BACKWARD : FighterState.WALK_FORWARD;
+    changeState(newState) {
+        // this.velocity * this.direction < 0 ? FighterState.WALK_BACKWARD : FighterState.WALK_FORWARD;
+
+        this.currentState = newState;
+        this.animationFrame = 0;
+
+        this.states[this.currentState].init();
+    }
 
     handleWalkForwardInit() {
-
+        this.velocity = 150;
     }
 
     handleWalkForwardState() {
 
     }
 
-    handleWalkBackwardInit() {
+    handleWalkBackwardsInit() {
+        this.velocity = -150;
+    }
+
+    handleWalkBackwardsState() {
 
     }
 
-    handleWalkBackwardState() {
+    updateStageConstraints(ctx) {
+        const WIDTH = 32;
 
+        if (this.position.x > ctx.canvas.width - WIDTH) {
+            this.position.x = ctx.canvas.width - WIDTH;
+        }
+        if (this.position.x < WIDTH) {
+            this.position.x = WIDTH;
+        }
     }
 
     update(time, ctx) {
-        const [[, , width]] = this.frames.get(this.animations[this.currentState][this.animationFrame]);
-
         if (time.previous > this.animationTimer + 60) {
             this.animationTimer = time.previous;
 
             this.animationFrame++;
-            if (this.animationFrame > 5) {
-                this.animationFrame = 0;
-            }
+            if (this.animationFrame > 5) this.animationFrame = 0;
         }
 
         this.position.x += this.velocity * time.secondsPassed;
 
-        if (this.position.x > ctx.canvas.width - width / 2) {
-            this.velocity = -150;
-            this.currentState = this.changeState();
-        }
-        if (this.position.x < width / 2) {
-            this.velocity = 150;
-            this.currentState = this.changeState();
-        }
+        this.states[this.currentState].update(time, ctx);
+        this.updateStageConstraints(ctx);
+
     }
 
     drawDebug(ctx) {
