@@ -5,6 +5,7 @@ import { Venom } from './entities/characters/Venom.js';
 import { FpsCounter } from './entities/FpsCounter.js';
 import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
+import { FighterDirection } from './constants/figther.js';
 
 //Defining Game Screen Dimensions
 const GameViewport = {
@@ -22,8 +23,8 @@ window.addEventListener('load', function () {
 
     const entities = [
         new Stage(),
-        new Ryu(80, STAGE_FLOOR, 150),
-        new Ken(80, STAGE_FLOOR, -150),
+        new Ryu(104, STAGE_FLOOR, FighterDirection.RIGHT),
+        new Ken(280, STAGE_FLOOR, FighterDirection.LEFT),
         new FpsCounter(),
     ];
 

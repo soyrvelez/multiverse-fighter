@@ -1,14 +1,16 @@
+import { FighterDirection } from '../../constants/figther.js';
 export class Character {
-    constructor(name, x, y, velocity) {
+    constructor(name, x, y, direction) {
         this.name = name;
         this.image = new Image();
         this.frames = new Map();
         this.position = { x, y };
-        this.velocity = velocity;
+        this.velocity = 150;
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.state = 'walkForwards';
         this.animations = {};
+        this.direction = direction;
     }
 
     update(time, ctx) {
