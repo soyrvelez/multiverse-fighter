@@ -14,17 +14,33 @@ export class Character {
 
         this.states = {
             [FighterState.WALK_FORWARD]: {
-                init: () => {},
-                update: () => {},
+                init: this.handleWalkForwardInit.bind(this),
+                update: this.handleWalkForwardState.bind(this),
             },
             [FighterState.WALK_BACKWARD]: {
-                init: () => {},
-                update: () => {},
+                init: this.handleWalkBackwardInit.bind(this),
+                update: this.handleWalkBackwardState.bind(this),
             },
         }
     }
 
     changeState = () => this.velocity * this.direction < 0 ? FighterState.WALK_BACKWARD : FighterState.WALK_FORWARD;
+
+    handleWalkForwardInit() {
+
+    }
+
+    handleWalkForwardState() {
+
+    }
+
+    handleWalkBackwardInit() {
+
+    }
+
+    handleWalkBackwardState() {
+
+    }
 
     update(time, ctx) {
         const [[, , width]] = this.frames.get(this.animations[this.state][this.animationFrame]);
