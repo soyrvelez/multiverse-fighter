@@ -10,7 +10,7 @@ export class Character {
     }
 
     update(time, ctx) {
-        const [, , width] = this.frames.get(`forwards-${this.animationFrame}`);
+        const [[, , width]] = this.frames.get(`forwards-${this.animationFrame}`);
 
         if (time.previous > this.animationTimer + 60) {
             this.animationTimer = time.previous;
@@ -23,7 +23,7 @@ export class Character {
 
         this.position.x += this.velocity * time.secondsPassed;
 
-        if (this.position.x > ctx.canvas.width - width || this.position.x < 0) {
+        if (this.position.x > ctx.canvas.width || this.position.x < 0) {
             this.velocity = -this.velocity;
         }
     }
@@ -41,9 +41,19 @@ export class Character {
     }
 
     draw(ctx) {
-        const [x, y, width, height] = this.frames.get(`forwards-${this.animationFrame}`);
+        const [
+            [x, y, width, height],
+            [originX, originY],
+        ] = this.frames.get(`forwards-${this.animationFrame}`);
 
-        ctx.drawImage(this.image, x, y, width, height, this.position.x, this.position.y, width, height);
+        ctx.drawImage(
+            this.image,
+            x, y,
+            width,
+            height,
+            this.position.x - originX, this.position.y - originY,
+            width, height
+            );
 
         this.drawDebug(ctx);
     }
