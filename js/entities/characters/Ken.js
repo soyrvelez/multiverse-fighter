@@ -1,4 +1,4 @@
-import { Character } from "./Character.js";
+import { Character } from "./Fighters.js";
 
 export class Ken extends Character {
     constructor(x, y, velocity) {
