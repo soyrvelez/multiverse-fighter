@@ -5,19 +5,21 @@ export class Character {
         this.frames = new Map();
         this.position = { x, y };
         this.velocity = velocity;
-        this.animationFrame = 1;
+        this.animationFrame = 0;
         this.animationTimer = 0;
+        this.state = 'walkForwards';
+        this.animations = {};
     }
 
     update(time, ctx) {
-        const [[, , width]] = this.frames.get(`forwards-${this.animationFrame}`);
+        const [[, , width]] = this.frames.get(this.animations[this.state][this.animationFrame]);
 
         if (time.previous > this.animationTimer + 60) {
             this.animationTimer = time.previous;
 
             this.animationFrame++;
-            if (this.animationFrame > 6) {
-                this.animationFrame = 1;
+            if (this.animationFrame > 5) {
+                this.animationFrame = 0;
             }
         }
 
@@ -44,7 +46,7 @@ export class Character {
         const [
             [x, y, width, height],
             [originX, originY],
-        ] = this.frames.get(`forwards-${this.animationFrame}`);
+        ] = this.frames.get(this.animations[this.state][this.animationFrame]);
 
         ctx.drawImage(
             this.image,
