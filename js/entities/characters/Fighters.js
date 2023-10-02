@@ -25,8 +25,13 @@ export class Character {
 
         this.position.x += this.velocity * time.secondsPassed;
 
-        if (this.position.x > ctx.canvas.width - width / 2 || this.position.x < width / 2) {
-            this.velocity = -this.velocity;
+        if (this.position.x > ctx.canvas.width - width / 2) {
+            this.velocity = -150;
+            this.state = 'walkBackwards';
+        }
+        if (this.position.x < width / 2) {
+            this.velocity = 150;
+            this.state = 'walkForwards';
         }
     }
 
