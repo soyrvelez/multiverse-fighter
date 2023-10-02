@@ -25,7 +25,7 @@ export class Character {
                 update: this.handleWalkBackwardsState.bind(this),
             },
         }
-        this.changeState(FighterState.WALK_BACKWARD);
+        this.changeState(FighterState.IDLE);
     }
 
     changeState(newState) {
