@@ -7,21 +7,12 @@ import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
 import { FighterDirection } from './constants/figther.js';
 
-//Defining Game Screen Dimensions
-const GameViewport = {
-    width: 384,
-    height: 224,
-}
-
 // Ensure page loads before code runs
 window.addEventListener('load', function () {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
 
     ctx.imageSmoothingEnabled = false;
-
-    canvas.width = GameViewport.width;
-    canvas.height = GameViewport.height;
 
     const entities = [
         new Stage(),
