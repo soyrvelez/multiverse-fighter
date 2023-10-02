@@ -1,4 +1,4 @@
-import { FighterDirection, FighterState } from '../../constants/figther.js';
+import { FighterDirection, FighterState } from '../../constants/fighter.js';
 export class Character {
     constructor(name, x, y, direction) {
         this.name = name;

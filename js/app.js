@@ -5,7 +5,7 @@ import { Venom } from './entities/characters/Venom.js';
 import { FpsCounter } from './entities/FpsCounter.js';
 import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
-import { FighterDirection } from './constants/figther.js';
+import { FighterDirection } from './constants/fighter.js';
 
 // Ensure page loads before code runs
 window.addEventListener('load', function () {

@@ -1,4 +1,4 @@
-import { FighterState } from "../../constants/figther.js";
+import { FighterState } from "../../constants/fighter.js";
 import { Character } from "./Fighters.js";
 
 export class Ryu extends Character {
