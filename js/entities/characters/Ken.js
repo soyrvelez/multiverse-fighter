@@ -49,5 +49,8 @@ export class Ken extends Character {
         this.initialVelocity = {
             jump: -420,
         };
+
+        this.gravity = 1000;
+
     }
 }

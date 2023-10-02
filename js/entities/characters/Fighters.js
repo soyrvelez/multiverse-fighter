@@ -1,4 +1,5 @@
 import { FighterDirection, FighterState } from '../../constants/fighter.js';
+import { STAGE_FLOOR } from '../../constants/stage.js';
 export class Character {
     constructor(name, x, y, direction) {
         this.name = name;
@@ -45,6 +46,7 @@ export class Character {
 
     handleIdleInit() {
         this.velocity.x = 0;
+        this.velocity.y = 0;
     }
 
     handleIdleState() {
@@ -71,8 +73,13 @@ export class Character {
         this.velocity.y = this.initialVelocity.jump;
     }
 
-    handleJumpUpState() {
+    handleJumpUpState(time) {
+        this.velocity.y += this.gravity * time.secondsPassed;
 
+        if (this.position.y > STAGE_FLOOR) {
+            this.position.y = STAGE_FLOOR;
+            this.changeState(FighterState.IDLE);
+        }
     }
 
 
