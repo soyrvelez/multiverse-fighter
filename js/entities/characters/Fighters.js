@@ -12,6 +12,10 @@ export class Character {
         this.animations = {};
 
         this.states = {
+            [FighterState.IDLE]: {
+                init: this.handleIdleInit.bind(this),
+                update: this.handleIdleState.bind(this),
+            },
             [FighterState.WALK_FORWARD]: {
                 init: this.handleWalkForwardInit.bind(this),
                 update: this.handleWalkForwardState.bind(this),
@@ -31,6 +35,14 @@ export class Character {
         this.states[this.currentState].init();
     }
 
+    handleIdleInit() {
+        this.velocity = 0;
+    }
+
+    handleIdleState() {
+
+    }
+
     handleWalkForwardInit() {
         this.velocity = 150 * this.direction;
     }
@@ -46,6 +58,7 @@ export class Character {
     handleWalkBackwardsState() {
 
     }
+
 
     updateStageConstraints(ctx) {
         const WIDTH = 32;
