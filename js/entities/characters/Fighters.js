@@ -10,7 +10,7 @@ export class Character {
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
-        this.state = this.changeState();
+        this.currentState = this.changeState();
 
         this.states = {
             [FighterState.WALK_FORWARD]: {
@@ -43,7 +43,7 @@ export class Character {
     }
 
     update(time, ctx) {
-        const [[, , width]] = this.frames.get(this.animations[this.state][this.animationFrame]);
+        const [[, , width]] = this.frames.get(this.animations[this.currentState][this.animationFrame]);
 
         if (time.previous > this.animationTimer + 60) {
             this.animationTimer = time.previous;
@@ -58,11 +58,11 @@ export class Character {
 
         if (this.position.x > ctx.canvas.width - width / 2) {
             this.velocity = -150;
-            this.state = this.changeState();
+            this.currentState = this.changeState();
         }
         if (this.position.x < width / 2) {
             this.velocity = 150;
-            this.state = this.changeState();
+            this.currentState = this.changeState();
         }
     }
 
@@ -82,7 +82,7 @@ export class Character {
         const [
             [x, y, width, height],
             [originX, originY],
-        ] = this.frames.get(this.animations[this.state][this.animationFrame]);
+        ] = this.frames.get(this.animations[this.currentState][this.animationFrame]);
 
         ctx.scale(this.direction, 1);
         ctx.drawImage(
