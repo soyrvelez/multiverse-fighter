@@ -5,10 +5,22 @@ import { Venom } from './entities/characters/Venom.js';
 import { FpsCounter } from './entities/FpsCounter.js';
 import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
-import { FighterDirection } from './constants/fighter.js';
+import { FighterDirection, FighterState } from './constants/fighter.js';
+
+function populateMoveDropdown() {
+    const dropdown = document.getElementById('state-dropdown');
+
+    Object.entries(FighterState).forEach(([, value]) => {
+        const option = document.createElement('option');
+        option.setAttribute('value', value);
+        option.innerText = value;
+        dropdown.appendChild(option);
+    });
+}
 
 // Ensure page loads before code runs
 window.addEventListener('load', function () {
+    populateMoveDropdown();
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
 
