@@ -18,6 +18,8 @@ window.addEventListener('load', function () {
     const canvas = document.querySelector('canvas');
     const ctx = canvas.getContext('2d');
 
+    ctx.imageSmoothingEnabled = false;
+
     canvas.width = GameViewport.width;
     canvas.height = GameViewport.height;
 

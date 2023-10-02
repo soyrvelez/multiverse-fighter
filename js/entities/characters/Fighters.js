@@ -44,10 +44,10 @@ export class Character {
 
         ctx.beginPath();
         ctx.strokeStyle = 'white';
-        ctx.moveTo(this.position.x - 5, this.position.y);
-        ctx.lineTo(this.position.x + 4, this.position.y);
-        ctx.moveTo(this.position.x, this.position.y - 5);
-        ctx.lineTo(this.position.x, this.position.y + 4);
+        ctx.moveTo(Math.floor(this.position.x) - 4.5, Math.floor(this.position.y));
+        ctx.lineTo(Math.floor(this.position.x) + 4.5, Math.floor(this.position.y));
+        ctx.moveTo(Math.floor(this.position.x), Math.floor(this.position.y) - 4.5);
+        ctx.lineTo(Math.floor(this.position.x), Math.floor(this.position.y) + 4.5);
         ctx.stroke();
     }
 
@@ -61,9 +61,8 @@ export class Character {
         ctx.drawImage(
             this.image,
             x, y,
-            width,
-            height,
-            this.position.x * this.direction - originX, this.position.y - originY,
+            width, height,
+            Math.floor(this.position.x * this.direction) - originX, Math.floor(this.position.y) - originY,
             width, height
             );
         ctx.setTransform(1, 0, 0, 1, 0, 0);
