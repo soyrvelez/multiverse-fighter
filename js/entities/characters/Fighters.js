@@ -3,7 +3,7 @@ export class Character {
     constructor(name, x, y, direction) {
         this.name = name;
         this.position = { x, y };
-        this.velocity = {x: 0, y: 0};
+        this.velocity = { x: 0, y: 0 };
         this.initialVelocity = {};
         this.direction = direction;
         this.gravity = 0;
