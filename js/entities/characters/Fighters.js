@@ -2,14 +2,18 @@ import { FighterDirection, FighterState } from '../../constants/fighter.js';
 export class Character {
     constructor(name, x, y, direction) {
         this.name = name;
-        this.image = new Image();
-        this.frames = new Map();
         this.position = { x, y };
+        this.velocity = {x: 0, y: 0};
+        this.initialVelocity = {};
         this.direction = direction;
-        this.velocity = 0;
+        this.gravity = 0;
+
+        this.frames = new Map();
         this.animationFrame = 0;
         this.animationTimer = 0;
         this.animations = {};
+
+        this.image = new Image();
 
         this.states = {
             [FighterState.IDLE]: {
@@ -24,6 +28,10 @@ export class Character {
                 init: this.handleWalkBackwardsInit.bind(this),
                 update: this.handleWalkBackwardsState.bind(this),
             },
+            [FighterState.JUMP_UP]: {
+                init: this.handleJumpUpInit.bind(this),
+                update: this.handleJumpUpState.bind(this),
+            },
         }
         this.changeState(FighterState.IDLE);
     }
@@ -36,7 +44,7 @@ export class Character {
     }
 
     handleIdleInit() {
-        this.velocity = 0;
+        this.velocity.x = 0;
     }
 
     handleIdleState() {
@@ -44,7 +52,7 @@ export class Character {
     }
 
     handleWalkForwardInit() {
-        this.velocity = 150 * this.direction;
+        this.velocity.x = 150 * this.direction;
     }
 
     handleWalkForwardState() {
@@ -52,10 +60,18 @@ export class Character {
     }
 
     handleWalkBackwardsInit() {
-        this.velocity = -150 * this.direction;
+        this.velocity.x = -150 * this.direction;
     }
 
     handleWalkBackwardsState() {
+
+    }
+
+    handleJumpUpInit() {
+        this.velocity.y = this.initialVelocity.jump;
+    }
+
+    handleJumpUpState() {
 
     }
 
@@ -71,17 +87,21 @@ export class Character {
         }
     }
 
-    update(time, ctx) {
+    updateAnimation(time) {
         if (time.previous > this.animationTimer + 60) {
             this.animationTimer = time.previous;
 
             this.animationFrame++;
-            if (this.animationFrame > 5) this.animationFrame = 0;
+            if (this.animationFrame >= this.animations[this.currentState].length) this.animationFrame = 0;
         }
+    }
 
-        this.position.x += this.velocity * time.secondsPassed;
+    update(time, ctx) {
+        this.position.x += this.velocity.x * time.secondsPassed;
+        this.position.y += this.velocity.y * time.secondsPassed;
 
         this.states[this.currentState].update(time, ctx);
+        this.updateAnimation(time);
         this.updateStageConstraints(ctx);
 
     }
