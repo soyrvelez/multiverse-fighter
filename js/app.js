@@ -1,8 +1,10 @@
 // import entity functions from entity modules
 import { Ryu } from './entities/characters/Ryu.js';
-import { Stage } from './entities/Stage.js';
+import { Stage } from './entities/Background.js';
 import { Venom } from './entities/characters/Venom.js';
 import { FpsCounter } from './entities/FpsCounter.js';
+import { STAGE_FLOOR } from './constants/stage.js';
+import { Ken } from './entities/characters/Ken.js';
 
 //Defining Game Screen Dimensions
 const GameViewport = {
@@ -20,8 +22,8 @@ window.addEventListener('load', function () {
 
     const entities = [
         new Stage(),
-        new Ryu(80, 200, 150),
-        new Venom(80, 200, -150),
+        new Ryu(80, STAGE_FLOOR, 150),
+        new Ken(80, STAGE_FLOOR, -150),
         new FpsCounter(),
     ];
 

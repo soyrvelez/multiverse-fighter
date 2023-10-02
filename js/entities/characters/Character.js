@@ -23,7 +23,7 @@ export class Character {
 
         this.position.x += this.velocity * time.secondsPassed;
 
-        if (this.position.x > ctx.canvas.width || this.position.x < 0) {
+        if (this.position.x > ctx.canvas.width - width / 2 || this.position.x < width / 2) {
             this.velocity = -this.velocity;
         }
     }
