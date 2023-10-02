@@ -30,10 +30,6 @@ window.addEventListener('load', function () {
         secondsPassed: 0,
     };
 
-    // Setting up refresh rate variables
-    let previousTime = 0;
-    let secondsPassed = 0;
-
     // animation function
     function frame(time) {
         window.requestAnimationFrame(frame);
