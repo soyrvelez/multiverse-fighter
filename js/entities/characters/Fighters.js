@@ -1,4 +1,4 @@
-import { FighterDirection } from '../../constants/figther.js';
+import { FighterDirection, FighterState } from '../../constants/figther.js';
 export class Character {
     constructor(name, x, y, direction) {
         this.name = name;
@@ -13,7 +13,7 @@ export class Character {
         this.state = this.changeState();
     }
 
-    changeState = () => this.velocity * this.direction < 0 ? 'walkBackwards' : 'walkForwards';
+    changeState = () => this.velocity * this.direction < 0 ? FighterState.WALK_BACKWARD : FighterState.WALK_FORWARD;
 
     update(time, ctx) {
         const [[, , width]] = this.frames.get(this.animations[this.state][this.animationFrame]);
