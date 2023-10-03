@@ -2,6 +2,5 @@
 import { FightingGame } from './FightingGame.js';
 
 window.addEventListener('load', function () {
-    const fightingGame = new FightingGame();
-    fightingGame.start();
+   new FightingGame().start();
 });
