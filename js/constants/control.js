@@ -21,5 +21,5 @@ export const controls = [
             [Control.UP]: 'KeyW',
             [Control.DOWN]: 'KeyS',
         }
-    },
+    }
 ];
