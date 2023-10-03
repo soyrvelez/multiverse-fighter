@@ -98,6 +98,18 @@ export class Character {
         this.handleMoveInit();
     }
 
+    handleIdleState(){
+
+    }
+
+    handleWalkForwardState() {
+
+    }
+
+    handleWalkBackwardsState() {
+
+    }
+
     handleCrouchDownState() {
         if (this.animations[this.currentState][this.animationFrame][1] === -2) {
             this.changeState(FighterState.CROUCH);
