@@ -55,6 +55,15 @@ export class Character {
                 update: this.handleJumpState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_BACKWARD],
             },
+            [FighterState.CROUCH]: {
+
+            },
+            [FighterState.CROUCH_DOWN]: {
+
+            },
+            [FighterState.CROUCH_UP]: {
+
+            },
         }
         this.changeState(FighterState.IDLE);
     }
