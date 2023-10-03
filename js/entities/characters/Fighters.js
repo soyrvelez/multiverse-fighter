@@ -61,11 +61,11 @@ export class Character {
             },
             [FighterState.CROUCH]: {
                 init: ( ) => { },
-                update: () => { },
+                update: this.handleCrouchState.bind(this),
                 validFrom: [FighterState.CROUCH_DOWN],
             },
             [FighterState.CROUCH_DOWN]: {
-                init: ( ) => { },
+                init: this.handleCrouchDownInit.bind(this),
                 update: this.handleCrouchDownState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
@@ -101,17 +101,27 @@ export class Character {
         this.handleMoveInit();
     }
 
+    handleCrouchDownInit() {
+        this.handleIdleInit();
+    }
+
     handleIdleState() {
+        if (control.isUp(this.playerId)) this.changeState(FighterState.JUMP_UP);
+        if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
         if (control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.WALK_BACKWARD);
         if (control.isForward(this.playerId, this.direction)) this.changeState(FighterState.WALK_FORWARD);
     }
 
     handleWalkForwardState() {
         if (!control.isForward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
+        if (control.isUp(this.playerId)) this.changeState(FighterState.JUMP_FORWARD);
+        if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
     }
 
     handleWalkBackwardsState() {
         if (!control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
+        if (control.isUp(this.playerId)) this.changeState(FighterState.JUMP_BACKWARD);
+        if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
     }
 
     handleCrouchDownState() {
@@ -135,6 +145,9 @@ export class Character {
         }
     }
 
+    handleCrouchState() {
+        if (!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
+    }
 
     updateStageConstraints(ctx) {
         const WIDTH = 32;
