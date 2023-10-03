@@ -19,6 +19,8 @@ export class Character {
 
         this.image = new Image();
 
+        this.opponent;
+
         this.states = {
             [FighterState.IDLE]: {
                 init: this.handleIdleInit.bind(this),
@@ -27,7 +29,7 @@ export class Character {
                     undefined,
                     FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD,
                     FighterState.JUMP_UP, FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
-                    FighterState.CROUCH_UP, FighterState.JUMP_LAND, 
+                    FighterState.CROUCH_UP, FighterState.JUMP_LAND,
                 ],
             },
             [FighterState.WALK_FORWARD]: {
@@ -75,7 +77,7 @@ export class Character {
                 ],
             },
             [FighterState.CROUCH]: {
-                init: ( ) => { },
+                init: () => { },
                 update: this.handleCrouchState.bind(this),
                 validFrom: [FighterState.CROUCH_DOWN],
             },
@@ -85,13 +87,16 @@ export class Character {
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.CROUCH_UP]: {
-                init: ( ) => { },
+                init: () => { },
                 update: this.handleCrouchUpState.bind(this),
                 validFrom: [FighterState.CROUCH],
             },
         }
         this.changeState(FighterState.IDLE);
     }
+
+    getDirection = () => this.position.x >= this.opponent.position.x
+        ? FighterDirection.LEFT : FighterDirection.RIGHT;
 
     changeState(newState) {
         if (newState === this.currentState
@@ -227,6 +232,8 @@ export class Character {
     update(time, ctx) {
         this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
         this.position.y += this.velocity.y * time.secondsPassed;
+
+        this.direction = this.getDirection();
 
         this.states[this.currentState].update(time, ctx);
         this.updateAnimation(time);
