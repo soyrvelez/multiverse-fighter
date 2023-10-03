@@ -39,13 +39,16 @@ export class Ken extends Character {
             ['jump-up-6', [[1031, 1008, 55, 103], [32, 107]]],
 
             // Jump with direction
-            ['jump-roll-1', [[1237, 1036, 55, 103], [25, 106]]],
+            ['jump-roll-1', [[1237, 1037, 55, 103], [25, 106]]],
             ['jump-roll-2', [[1301, 990, 61, 78], [22, 90]]],
             ['jump-roll-3', [[1363, 994, 184, 42], [61, 76]]],
             ['jump-roll-4', [[1468, 957, 53, 82], [42, 111]]],
             ['jump-roll-5', [[1541, 988, 122, 44], [71, 81]]],
             ['jump-roll-6', [[1664, 976, 71, 87], [53, 98]]],
             ['jump-roll-7', [[1748, 977, 55, 103], [32, 107]]],
+
+            // Jump first-last frame
+            ['jump-land', [[660, 1060, 55, 85], [29, 83]]],
             // Crouch
             ['crouch-1', [[8, 779, 53, 83], [27, 81]]],
             ['crouch-2', [[79, 794, 57, 69], [25, 66]]],
@@ -65,6 +68,9 @@ export class Ken extends Character {
                 ['backwards-1', 65], ['backwards-2', 65], ['backwards-3', 65],
                 ['backwards-4', 65], ['backwards-5', 65], ['backwards-6', 65],
             ],
+            [FighterState.JUMP_START]: [
+                ['jump-land', 50], ['jump-land', -2],
+            ],
             [FighterState.JUMP_UP]: [
                 ['jump-up-1', 180], ['jump-up-2', 100], ['jump-up-3', 100],
                 ['jump-up-4', 100], ['jump-up-5', 100], ['jump-up-6', -1],
@@ -77,6 +83,11 @@ export class Ken extends Character {
             [FighterState.JUMP_BACKWARD]: [
                 ['jump-roll-7', 200], ['jump-roll-6', 50], ['jump-roll-5', 50],
                 ['jump-roll-4', 50], ['jump-roll-3', 50], ['jump-roll-2', 50],
+                ['jump-roll-1', 0],
+            ],
+            [FighterState.JUMP_LAND]: [
+                ['jump-land', 33], ['jump-land', 117],
+                ['jump-land', -2],
             ],
             [FighterState.CROUCH]: [['crouch-3', 0]],
             [FighterState.CROUCH_DOWN]: [
