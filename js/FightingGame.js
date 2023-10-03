@@ -4,6 +4,7 @@ import { FpsCounter } from './entities/FpsCounter.js';
 import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
 import { FighterDirection } from './constants/fighter.js';
+import { registerKeyboardEvents } from './inputHandler.js';
 
 export class FightingGame {
     constructor() {
@@ -59,6 +60,7 @@ export class FightingGame {
     }
 
     start() {
+        registerKeyboardEvents();
         //requests animation at monitor's refresh rate
         window.requestAnimationFrame(this.frame.bind(this));
     }
