@@ -102,16 +102,16 @@ export class Character {
     }
 
     handleIdleState() {
-        if (control.isLeft(this.playerId)) this.changeState(FighterState.WALK_BACKWARD);
-        if (control.isRight(this.playerId)) this.changeState(FighterState.WALK_FORWARD);
+        if (control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.WALK_BACKWARD);
+        if (control.isForward(this.playerId, this.direction)) this.changeState(FighterState.WALK_FORWARD);
     }
 
     handleWalkForwardState() {
-        if (!control.isRight(this.playerId)) this.changeState(FighterState.IDLE);
+        if (!control.isForward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
     }
 
     handleWalkBackwardsState() {
-        if (!control.isLeft(this.playerId)) this.changeState(FighterState.IDLE);
+        if (!control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
     }
 
     handleCrouchDownState() {
