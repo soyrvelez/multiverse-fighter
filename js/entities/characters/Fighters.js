@@ -1,9 +1,11 @@
 import { FighterDirection, FighterState } from '../../constants/fighter.js';
 import { STAGE_FLOOR } from '../../constants/stage.js';
-import { isKeyDown, isKeyUp } from '../../inputHandler.js';
+import * as control from '../../inputHandler.js';
+
 export class Character {
-    constructor(name, x, y, direction) {
+    constructor(name, x, y, direction, playerId) {
         this.name = name;
+        this.playerId = playerId;
         this.position = { x, y };
         this.velocity = { x: 0, y: 0 };
         this.initialVelocity = {};
@@ -100,16 +102,16 @@ export class Character {
     }
 
     handleIdleState() {
-        if (isKeyDown('ArrowLeft')) this.changeState(FighterState.WALK_BACKWARD);
-        if (isKeyDown('ArrowRight')) this.changeState(FighterState.WALK_FORWARD);
+        if (control.isLeft(this.playerId)) this.changeState(FighterState.WALK_BACKWARD);
+        if (control.isRight(this.playerId)) this.changeState(FighterState.WALK_FORWARD);
     }
 
     handleWalkForwardState() {
-        if (isKeyUp('ArrowRight')) this.changeState(FighterState.IDLE);
+        if (!control.isRight(this.playerId)) this.changeState(FighterState.IDLE);
     }
 
     handleWalkBackwardsState() {
-        if (isKeyUp('ArrowLeft')) this.changeState(FighterState.IDLE);
+        if (!control.isLeft(this.playerId)) this.changeState(FighterState.IDLE);
     }
 
     handleCrouchDownState() {
