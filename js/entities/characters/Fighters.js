@@ -95,11 +95,19 @@ export class Character {
     }
 
     updateAnimation(time) {
-        if (time.previous > this.animationTimer + 60) {
+        const animation = this.animations[this.currentState];
+        const [, frameDelay] = animation[this.animationFrame];
+
+        if (time.previous > this.animationTimer + frameDelay) {
             this.animationTimer = time.previous;
 
-            this.animationFrame++;
-            if (this.animationFrame >= this.animations[this.currentState].length) this.animationFrame = 0;
+            if (frameDelay > 0) {
+                this.animationFrame++;
+            }
+
+            if (this.animationFrame >= animation.length) {
+                this.animationFrame = 0
+            };
         }
     }
 
@@ -126,10 +134,11 @@ export class Character {
     }
 
     draw(ctx) {
+        const [frameKey] = this.animations[this.currentState][this.animationFrame];
         const [
             [x, y, width, height],
             [originX, originY],
-        ] = this.frames.get(this.animations[this.currentState][this.animationFrame]);
+        ] = this.frames.get(frameKey);
 
         ctx.scale(this.direction, 1);
         ctx.drawImage(
@@ -138,7 +147,7 @@ export class Character {
             width, height,
             Math.floor(this.position.x * this.direction) - originX, Math.floor(this.position.y) - originY,
             width, height
-            );
+        );
         ctx.setTransform(1, 0, 0, 1, 0, 0);
 
         this.drawDebug(ctx);
