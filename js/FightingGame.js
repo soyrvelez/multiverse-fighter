@@ -4,7 +4,7 @@ import { FpsCounter } from './entities/FpsCounter.js';
 import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
 import { FighterDirection } from './constants/fighter.js';
-import { registerKeyboardEvents } from './inputHandler.js';
+import { pollGamepads, registerGamepadEvents, registerKeyboardEvents } from './inputHandler.js';
 import { Shadow } from './entities/characters/Shadow.js';
 
 export class FightingGame {
@@ -57,12 +57,14 @@ export class FightingGame {
             previous: time,
         }
 
+        pollGamepads();
         this.update();
         this.draw();
     }
 
     start() {
         registerKeyboardEvents();
+        registerGamepadEvents();
         //requests animation at monitor's refresh rate
         window.requestAnimationFrame(this.frame.bind(this));
     }
