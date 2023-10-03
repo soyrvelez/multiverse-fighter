@@ -1,3 +1,9 @@
+export const GamepadThumbstick = {
+    DEAD_ZONE: 'deadZone',
+    HORIZONTAL_AXE_ID: 'horizontalAxeId',
+    VERTICAL_AXE_ID: 'verticalAxeId',
+}
+
 export const Control = {
     LEFT: 'left',
     RIGHT: 'right',
@@ -5,8 +11,19 @@ export const Control = {
     DOWN: 'down',
 };
 
+// Mapping Keyboard and Xbox Controller Input to controls
 export const controls = [
     {
+        gamePad: {
+            [GamepadThumbstick.DEAD_ZONE]: 0.5,
+            [GamepadThumbstick.HORIZONTAL_AXE_ID]: 0,
+            [GamepadThumbstick.VERTICAL_AXE_ID]: 1,
+
+            [Control.LEFT]: 14,
+            [Control.RIGHT]: 15,
+            [Control.UP]: 12,
+            [Control.DOWN]: 13,
+        },
         keyboard: {
             [Control.LEFT]: 'ArrowLeft',
             [Control.RIGHT]: 'ArrowRight',
@@ -15,6 +32,16 @@ export const controls = [
         }
     },
     {
+        gamePad: {
+            [GamepadThumbstick.DEAD_ZONE]: 0.5,
+            [GamepadThumbstick.HORIZONTAL_AXE_ID]: 0,
+            [GamepadThumbstick.VERTICAL_AXE_ID]: 1,
+
+            [Control.LEFT]: 14,
+            [Control.RIGHT]: 15,
+            [Control.UP]: 12,
+            [Control.DOWN]: 13,
+        },
         keyboard: {
             [Control.LEFT]: 'KeyA',
             [Control.RIGHT]: 'KeyD',
