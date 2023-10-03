@@ -58,25 +58,7 @@ export class FightingGame {
         this.draw();
     }
 
-    handleFormSubmit(e) {
-        e.preventDefault();
-
-        const selectedCheckboxes = Array
-        .from(e.target.querySelectorAll('input:checked'))
-        .map(checkbox => checkbox.value);
-
-        const options = e.target.querySelector('select');
-
-        this.fighters.forEach(fighter => {
-            if (selectedCheckboxes.includes(fighter.name)) {
-                fighter.changeState(options.value);
-            }
-        });
-    }
-
     start() {
-        document.addEventListener('submit', this.handleFormSubmit.bind(this));
-
         //requests animation at monitor's refresh rate
         window.requestAnimationFrame(this.frame.bind(this));
     }
