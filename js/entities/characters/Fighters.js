@@ -19,23 +19,24 @@ export class Character {
         this.states = {
             [FighterState.IDLE]: {
                 init: this.handleIdleInit.bind(this),
-                update: this.handleIdleState.bind(this),
+                update: () => { },
                 validFrom: [
                     undefined,
                     FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD,
-                    FighterState.JUMP_UP, FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD
+                    FighterState.JUMP_UP, FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
+                    FighterState.CROUCH_UP
                 ],
             },
             [FighterState.WALK_FORWARD]: {
                 init: this.handleMoveInit.bind(this),
-                update: this.handleMoveState.bind(this),
+                update: ( ) => { },
                 validFrom: [
                     FighterState.IDLE, FighterState.WALK_BACKWARD,
                 ],
             },
             [FighterState.WALK_BACKWARD]: {
                 init: this.handleMoveInit.bind(this),
-                update: this.handleMoveState.bind(this),
+                update: () => { },
                 validFrom: [
                     FighterState.IDLE, FighterState.WALK_FORWARD,
                 ],
@@ -56,13 +57,19 @@ export class Character {
                 validFrom: [FighterState.IDLE, FighterState.WALK_BACKWARD],
             },
             [FighterState.CROUCH]: {
-
+                init: ( ) => { },
+                update: () => { },
+                validFrom: [FighterState.CROUCH_DOWN],
             },
             [FighterState.CROUCH_DOWN]: {
-
+                init: ( ) => { },
+                update: this.handleCrouchDownState.bind(this),
+                validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.CROUCH_UP]: {
-
+                init: ( ) => { },
+                update: this.handleCrouchUpState.bind(this),
+                validFrom: [FighterState.CROUCH],
             },
         }
         this.changeState(FighterState.IDLE);
@@ -82,21 +89,25 @@ export class Character {
         this.velocity.y = 0;
     }
 
-    handleIdleState() {
-
-    }
-
     handleMoveInit() {
         this.velocity.x = this.initialVelocity.x[this.currentState] ?? 0;
-    }
-
-    handleMoveState() {
-
     }
 
     handleJumpInit() {
         this.velocity.y = this.initialVelocity.jump;
         this.handleMoveInit();
+    }
+
+    handleCrouchDownState() {
+        if (this.animations[this.currentState][this.animationFrame][1] === -2) {
+            this.changeState(FighterState.CROUCH);
+        }
+    }
+
+    handleCrouchUpState() {
+        if (this.animations[this.currentState][this.animationFrame][1] === -2) {
+            this.changeState(FighterState.IDLE);
+        }
     }
 
     handleJumpState(time) {
