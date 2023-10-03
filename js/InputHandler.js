@@ -14,7 +14,7 @@ function handleKeyUp(event) {
 
 export function registerKeyboardEvents() {
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('keyup', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
 }
 
 export const isKeyDown = (code) => heldKeys.has(code);
