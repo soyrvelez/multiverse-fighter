@@ -35,6 +35,14 @@ export class Ryu extends Character {
             ['jump-up-4', [[259, 240, 48, 70], [28, 101]]],
             ['jump-up-5', [[319, 234, 48, 89], [25, 106]]],
             ['jump-up-6', [[375, 244, 55, 109], [31, 113]]],
+            // Jump with direction
+            ['jump-roll-1', [[878, 121, 55, 103], [25, 106]]],
+            ['jump-roll-2', [[442, 261, 61, 78], [22, 90]]],
+            ['jump-roll-3', [[507, 259, 104, 42], [61, 76]]],
+            ['jump-roll-4', [[617, 240, 53, 82], [42, 111]]],
+            ['jump-roll-5', [[676, 257, 122, 44], [71, 81]]],
+            ['jump-roll-6', [[804, 258, 71, 87], [53, 98]]],
+            ['jump-roll-7', [[883, 261, 54, 109], [31, 113]]],
 
         ]);
 
@@ -55,9 +63,24 @@ export class Ryu extends Character {
                 ['jump-up-1', 180], ['jump-up-2', 100], ['jump-up-3', 100],
                 ['jump-up-4', 100], ['jump-up-5', 100], ['jump-up-6', -1],
             ],
+            [FighterState.JUMP_FORWARD]: [
+                ['jump-roll-1', 200], ['jump-roll-2', 50], ['jump-roll-3', 50],
+                ['jump-roll-4', 100], ['jump-roll-5', 50], ['jump-roll-6', 50],
+                ['jump-roll-7', 0],
+            ],
+            [FighterState.JUMP_BACKWARD]: [
+                ['jump-roll-7', 200], ['jump-roll-6', 50], ['jump-roll-5', 50],
+                ['jump-roll-4', 50], ['jump-roll-3', 50], ['jump-roll-2', 50],
+            ],
         };
 
         this.initialVelocity = {
+            x: {
+                [FighterState.WALK_FORWARD]: 200,
+                [FighterState.WALK_BACKWARD]: -150,
+                [FighterState.JUMP_FORWARD]: 170,
+                [FighterState.JUMP_BACKWARD]: -200,
+            },
             jump: -420,
         };
 
