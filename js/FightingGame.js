@@ -5,6 +5,7 @@ import { STAGE_FLOOR } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
 import { FighterDirection } from './constants/fighter.js';
 import { registerKeyboardEvents } from './inputHandler.js';
+import { Shadow } from './entities/characters/Shadow.js';
 
 export class FightingGame {
     constructor() {
@@ -16,6 +17,7 @@ export class FightingGame {
 
         this.entities = [
             new Stage(),
+            ...this.fighters.map(fighter => new Shadow(fighter)),
             ...this.fighters,
             new FpsCounter(),
         ];
