@@ -308,10 +308,10 @@ export class Character {
 
     draw(ctx) {
         const [frameKey] = this.animations[this.currentState][this.animationFrame];
-        const [
+        const [[
             [x, y, width, height],
             [originX, originY],
-        ] = this.frames.get(frameKey);
+        ]] = this.frames.get(frameKey);
 
         ctx.scale(this.direction, 1);
         ctx.drawImage(
