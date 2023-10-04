@@ -53,6 +53,15 @@ export class Ken extends Character {
             ['crouch-1', [[8, 779, 53, 83], [27, 81]]],
             ['crouch-2', [[79, 794, 57, 69], [25, 66]]],
             ['crouch-3', [[148, 802, 61, 61], [25, 58]]],
+
+            // Stand Turn
+            ['idle-turn-1', [[420, 682, 54, 95], [29, 92]]],
+            ['idle-turn-2', [[488, 678, 58, 98], [30, 95]]],
+            ['idle-turn-3', [[560, 683, 54, 94], [27, 90]]],
+            // Crouch Turn
+            ['crouch-turn-1', [[356, 802, 53, 61], [26, 58]]],
+            ['crouch-turn-2', [[424, 802, 52, 61], [27, 58]]],
+            ['crouch-turn-3', [[486, 802, 53, 61], [29, 58]]],
         ]);
 
         this.animations = {
@@ -95,6 +104,14 @@ export class Ken extends Character {
             ],
             [FighterState.CROUCH_UP]: [
                 ['crouch-3', 30], ['crouch-2', 30], ['crouch-1', 30], ['crouch-1', -2],
+            ],
+            [FighterState.IDLE_TURN]: [
+                ['idle-turn-3', 33], ['idle-turn-2', 33],
+                ['idle-turn-1', 33], ['idle-turn-1', ],
+            ],
+            [FighterState.CROUCH_TURN]: [
+                ['crouch-turn-3', 33], ['crouch-turn-2', 33],
+                ['crouch-turn-1', 33], ['crouch-turn-1', ]
             ],
         };
 
