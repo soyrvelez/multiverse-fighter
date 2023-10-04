@@ -1,9 +1,9 @@
 import { Ryu } from './entities/characters/Ryu.js';
 import { Stage } from './entities/Background.js';
 import { FpsCounter } from './entities/FpsCounter.js';
-import { STAGE_FLOOR } from './constants/stage.js';
+import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
-import { FighterDirection } from './constants/fighter.js';
+import { FIGHTER_START_DISTANCE, FighterDirection } from './constants/fighter.js';
 import { pollGamepads, registerGamepadEvents, registerKeyboardEvents } from './inputHandler.js';
 import { Shadow } from './entities/characters/Shadow.js';
 import { StatusBar } from './entities/overlays/StatusBar.js';
@@ -13,14 +13,14 @@ export class FightingGame {
     constructor() {
         this.ctx = this.getContext();
         this.fighters = [
-            new Ryu(552, STAGE_FLOOR, FighterDirection.RIGHT, 0),
-            new Ken(728, STAGE_FLOOR, FighterDirection.LEFT, 1),
+            new Ryu(STAGE_MID_POINT + STAGE_PADDING - FIGHTER_START_DISTANCE, STAGE_FLOOR, FighterDirection.RIGHT, 0),
+            new Ken(STAGE_MID_POINT + STAGE_PADDING + FIGHTER_START_DISTANCE, STAGE_FLOOR, FighterDirection.LEFT, 1),
         ];
 
         this.fighters[0].opponent = this.fighters[1];
         this.fighters[1].opponent = this.fighters[0];
 
-        this.camera = new Camera(448, 16, this.fighters);
+        this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - (this.ctx.canvas.width / 2), 16, this.fighters);
 
         this.entities = [
             new Stage(),
