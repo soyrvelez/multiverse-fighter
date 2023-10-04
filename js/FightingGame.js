@@ -13,8 +13,8 @@ export class FightingGame {
     constructor() {
         this.ctx = this.getContext();
         this.fighters = [
-            new Ryu(104, STAGE_FLOOR, FighterDirection.RIGHT, 0),
-            new Ken(280, STAGE_FLOOR, FighterDirection.LEFT, 1),
+            new Ryu(552, STAGE_FLOOR, FighterDirection.RIGHT, 0),
+            new Ken(728, STAGE_FLOOR, FighterDirection.LEFT, 1),
         ];
 
         this.fighters[0].opponent = this.fighters[1];
