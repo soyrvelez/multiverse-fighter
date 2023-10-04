@@ -202,11 +202,17 @@ export class Character {
     }
 
     handleIdleTurnState() {
+        this.handleIdleState();
 
+        if (this.animations[this.currentState][this.animationFrame][1] !== -2) return;
+        this.changeState(FighterState.IDLE);
     }
 
     handleCrouchTurnState() {
+        this.handleCrouchState();
 
+        if (this.animations[this.currentState][this.animationFrame][1] !== -2) return;
+        this.changeState(FighterState.CROUCH);
     }
 
     handleJumpState(time) {
