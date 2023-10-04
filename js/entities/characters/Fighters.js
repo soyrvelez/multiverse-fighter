@@ -29,7 +29,7 @@ export class Character {
                     undefined,
                     FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD,
                     FighterState.JUMP_UP, FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
-                    FighterState.CROUCH_UP, FighterState.JUMP_LAND,
+                    FighterState.CROUCH_UP, FighterState.JUMP_LAND, FighterState.IDLE_TURN,
                 ],
             },
             [FighterState.WALK_FORWARD]: {
@@ -79,7 +79,7 @@ export class Character {
             [FighterState.CROUCH]: {
                 init: () => { },
                 update: this.handleCrouchState.bind(this),
-                validFrom: [FighterState.CROUCH_DOWN],
+                validFrom: [FighterState.CROUCH_DOWN, FighterState.CROUCH_TURN],
             },
             [FighterState.CROUCH_DOWN]: {
                 init: this.handleCrouchDownInit.bind(this),
@@ -89,6 +89,19 @@ export class Character {
             [FighterState.CROUCH_UP]: {
                 init: () => { },
                 update: this.handleCrouchUpState.bind(this),
+                validFrom: [FighterState.CROUCH],
+            },
+            [FighterState.IDLE_TURN]: {
+                init: () => { },
+                update: this.handleIdleTurnState.bind(this),
+                validFrom: [
+                    FighterState.IDLE, FighterState.JUMP_LAND,
+                    FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD,
+                ],
+            },
+            [FighterState.CROUCH_TURN]: {
+                init: () => { },
+                update: this.handleCrouchTurnState.bind(this),
                 validFrom: [FighterState.CROUCH],
             },
         }
@@ -193,7 +206,7 @@ export class Character {
     }
 
     handleCrouchTurnState() {
-        
+
     }
 
     handleJumpState(time) {
