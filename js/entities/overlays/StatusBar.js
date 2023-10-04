@@ -1,4 +1,5 @@
 import { TIME_DELAY, TIME_FLASH_DELAY, TIME_FRAME_KEYS } from '../../constants/battle.js';
+import { drawFrame } from '../../utilities/context.js';
 
 export class StatusBar {
     constructor(fighters,) {
@@ -44,18 +45,13 @@ export class StatusBar {
             ['tag-ken', [128, 56, 30, 9]],
             ['tag-ryu', [16, 56, 28, 9]],
         ]);
+
+        const [{ name: name1}, { name: name2}] = this.fighters;
+        this.names = [`tag-${name1.toLowerCase()}`, `tag-${name2.toLowerCase()}`];
     }
 
     drawFrame(ctx, frameKey, x, y, direction = 1) {
-        const [sourceX, sourceY, sourceWidth, sourceHeight] = this.frames.get(frameKey);
-
-        ctx.scale(direction, 1);
-        ctx.drawImage(
-            this.image,
-            sourceX, sourceY, sourceWidth, sourceHeight,
-            x * direction, y, sourceWidth, sourceHeight,
-        );
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        drawFrame(ctx, this.image, this.frames.get(frameKey), x, y, direction);
     }
 
     updateTime(time) {
@@ -83,10 +79,10 @@ export class StatusBar {
     }
 
     drawNameTags(ctx) {
-        const [{ name: name1}, { name: name2}] = this.fighters;
+        const [name1, name2] = this.names;
 
-        this.drawFrame(ctx, `tag-${name1.toLowerCase()}`, 32, 33);
-        this.drawFrame(ctx, `tag-${name2.toLowerCase()}`, 322, 33);
+        this.drawFrame(ctx, name1, 32, 33);
+        this.drawFrame(ctx, name2, 322, 33);
     }
 
     drawTime(ctx) {
