@@ -1,6 +1,7 @@
 import { FighterDirection, FighterState } from '../../constants/fighter.js';
 import { STAGE_FLOOR } from '../../constants/stage.js';
 import * as control from '../../inputHandler.js';
+import { rectsOverlap } from '../../utilities/collisions.js';
 
 export class Character {
     constructor(name, x, y, direction, playerId) {
@@ -110,16 +111,25 @@ export class Character {
         this.changeState(FighterState.IDLE);
     }
 
+    hasCollidedWithOpponent = () => rectsOverlap(
+        this.position.x + this.pushBox.x,
+        this.position.y + this.pushBox.y,
+        this.pushBox.width, this.pushBox.height,
+        this.opponent.position.x + this.opponent.pushBox.x,
+        this.opponent.position.y + this.opponent.pushBox.y,
+        this.opponent.pushBox.width, this.opponent.pushBox.height,
+    );
+
     getDirection() {
         if (
             this.position.x + this.pushBox.x + this.pushBox.width
             <= this.opponent.position.x + this.opponent.pushBox.x
-            ) {
+        ) {
             return FighterDirection.RIGHT;
         } else if (
             this.position.x + this.pushBox.x
             >= this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width
-            ) {
+        ) {
             return FighterDirection.LEFT;
         }
         return this.direction;
@@ -282,6 +292,23 @@ export class Character {
         }
         if (this.position.x < this.pushBox.width) {
             this.position.x = this.pushBox.width;
+        }
+
+        if (this.hasCollidedWithOpponent()) {
+            if (this.position.x <= this.opponent.position.x) {
+                this.position.x = Math.max(
+                    (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
+                    this.pushBox.width,
+                );
+            }
+
+            if (this.position.x >= this.opponent.position.x) {
+                this.position.x = Math.min(
+                    (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width)
+                    + (this.pushBox.width + this.pushBox.x),
+                    ctx.canvas.width - this.pushBox.width,
+                );
+            }
         }
     }
 
