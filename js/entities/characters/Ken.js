@@ -66,31 +66,31 @@ export class Ken extends Character {
 
         this.animations = {
             [FighterState.IDLE]: [
-                ['idle-1', 68], ['idle-2', 68], ['idle-3', 68],
-                ['idle-4', 68], ['idle-3', 68], ['idle-2', 68],
+                ['idle-1', 66], ['idle-2', 66], ['idle-3', 66],
+                ['idle-4', 66], ['idle-3', 66], ['idle-2', 66],
             ],
             [FighterState.WALK_FORWARD]: [
-                ['forwards-1', 65], ['forwards-2', 65], ['forwards-3', 65],
-                ['forwards-4', 65], ['forwards-5', 65], ['forwards-6', 65],
+                ['forwards-1', 49], ['forwards-2', 100], ['forwards-3', 66],
+                ['forwards-4', 66], ['forwards-5', 66], ['forwards-6', 100],
             ],
             [FighterState.WALK_BACKWARD]: [
-                ['backwards-1', 65], ['backwards-2', 65], ['backwards-3', 65],
-                ['backwards-4', 65], ['backwards-5', 65], ['backwards-6', 65],
+                ['backwards-1', 49], ['backwards-2', 100], ['backwards-3', 66],
+                ['backwards-4', 66], ['backwards-5', 66], ['backwards-6', 100],
             ],
             [FighterState.JUMP_START]: [
                 ['jump-land', 50], ['jump-land', FrameDelay.TRANSITION],
             ],
             [FighterState.JUMP_UP]: [
-                ['jump-up-1', 180], ['jump-up-2', 100], ['jump-up-3', 100],
-                ['jump-up-4', 100], ['jump-up-5', 100], ['jump-up-6', FrameDelay.TRANSITION],
+                ['jump-up-1', 149], ['jump-up-2', 133], ['jump-up-3', 133],
+                ['jump-up-4', 133], ['jump-up-5', 133], ['jump-up-6', FrameDelay.TRANSITION],
             ],
             [FighterState.JUMP_FORWARD]: [
-                ['jump-roll-1', 200], ['jump-roll-2', 50], ['jump-roll-3', 50],
-                ['jump-roll-4', 100], ['jump-roll-5', 50], ['jump-roll-6', 50],
+                ['jump-roll-1', 232], ['jump-roll-2', 83], ['jump-roll-3', 50],
+                ['jump-roll-4', 50], ['jump-roll-5', 50], ['jump-roll-6', 83],
                 ['jump-roll-7', FrameDelay.FREEZE],
             ],
             [FighterState.JUMP_BACKWARD]: [
-                ['jump-roll-7', 200], ['jump-roll-6', 50], ['jump-roll-5', 50],
+                ['jump-roll-7', 249], ['jump-roll-6', 50], ['jump-roll-5', 50],
                 ['jump-roll-4', 50], ['jump-roll-3', 50], ['jump-roll-2', 50],
                 ['jump-roll-1', FrameDelay.FREEZE],
             ],
@@ -100,10 +100,10 @@ export class Ken extends Character {
             ],
             [FighterState.CROUCH]: [['crouch-3', FrameDelay.FREEZE]],
             [FighterState.CROUCH_DOWN]: [
-                ['crouch-1', 30], ['crouch-2', 30], ['crouch-3', 30], ['crouch-3', FrameDelay.TRANSITION],
+                ['crouch-1', 33], ['crouch-2', 33], ['crouch-3', 33], ['crouch-3', FrameDelay.TRANSITION],
             ],
             [FighterState.CROUCH_UP]: [
-                ['crouch-3', 30], ['crouch-2', 30], ['crouch-1', 30], ['crouch-1', FrameDelay.TRANSITION],
+                ['crouch-3', 33], ['crouch-2', 33], ['crouch-1', 33], ['crouch-1', FrameDelay.TRANSITION],
             ],
             [FighterState.IDLE_TURN]: [
                 ['idle-turn-3', 33], ['idle-turn-2', 33],
@@ -117,10 +117,10 @@ export class Ken extends Character {
 
         this.initialVelocity = {
             x: {
-                [FighterState.WALK_FORWARD]: 200,
-                [FighterState.WALK_BACKWARD]: -150,
-                [FighterState.JUMP_FORWARD]: 170,
-                [FighterState.JUMP_BACKWARD]: -200,
+                [FighterState.WALK_FORWARD]: 3 * 60,
+                [FighterState.WALK_BACKWARD]: -( 2 * 60),
+                [FighterState.JUMP_FORWARD]: ((48 * 3) + (12 * 2)),
+                [FighterState.JUMP_BACKWARD]: -((45 * 4) + (15 * 3)),
             },
             jump: -420,
         };
