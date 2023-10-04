@@ -6,6 +6,7 @@ import { Ken } from './entities/characters/Ken.js';
 import { FighterDirection } from './constants/fighter.js';
 import { pollGamepads, registerGamepadEvents, registerKeyboardEvents } from './inputHandler.js';
 import { Shadow } from './entities/characters/Shadow.js';
+import { StatusBar } from './entities/overlays/StatusBar.js';
 
 export class FightingGame {
     constructor() {
@@ -23,6 +24,7 @@ export class FightingGame {
             ...this.fighters.map(fighter => new Shadow(fighter)),
             ...this.fighters,
             new FpsCounter(),
+            new StatusBar(this.fighters),
         ];
 
         this.frameTime = {
