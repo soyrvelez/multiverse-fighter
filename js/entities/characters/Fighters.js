@@ -203,13 +203,23 @@ export class Character {
     handleJumpLandState() {
         if (this.animationFrame < 1) return;
 
+        let newState = FighterState.IDLE;
+
         if (!control.isIdle(this.playerId)) {
+            this.direction = this.getDirection();
             this.handleIdleState();
-        } else if (this.animations[this.currentState][this.animationFrame][1] !== -2) {
-            return;
+        } else {
+            const newDirection = this.getDirection();
+
+            if (newDirection !== this.direction) {
+                this.direction = newDirection;
+                newState = FighterState.IDLE_TURN;
+            } else {
+                if (this.animations[this.currentState][this.animationFrame][1] !== -2) return;
+            }
         }
 
-        this.changeState(FighterState.IDLE);
+        this.changeState(newState);
     }
 
     handleIdleTurnState() {
