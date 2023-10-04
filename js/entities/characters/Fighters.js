@@ -151,18 +151,29 @@ export class Character {
         if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
         if (control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.WALK_BACKWARD);
         if (control.isForward(this.playerId, this.direction)) this.changeState(FighterState.WALK_FORWARD);
+
+        const newDirection = this.getDirection();
+
+        if (newDirection !== this.direction) {
+            this.direction = newDirection;
+            this.changeState(FighterState.IDLE_TURN);
+        }
     }
 
     handleWalkForwardState() {
         if (!control.isForward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
         if (control.isUp(this.playerId)) this.changeState(FighterState.JUMP_START);
         if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
+
+        this.direction = this.getDirection();
     }
 
     handleWalkBackwardsState() {
         if (!control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
         if (control.isUp(this.playerId)) this.changeState(FighterState.JUMP_START);
         if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
+
+        this.direction = this.getDirection();
     }
 
     handleCrouchDownState() {
@@ -226,6 +237,13 @@ export class Character {
 
     handleCrouchState() {
         if (!control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_UP);
+
+        const newDirection = this.getDirection();
+
+        if (newDirection !== this.direction) {
+            this.direction = newDirection;
+            this.changeState(FighterState.CROUCH_TURN);
+        }
     }
 
     updateStageConstraints(ctx) {
