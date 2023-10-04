@@ -188,6 +188,14 @@ export class Character {
         this.changeState(FighterState.IDLE);
     }
 
+    handleIdleTurnState() {
+
+    }
+
+    handleCrouchTurnState() {
+        
+    }
+
     handleJumpState(time) {
         this.velocity.y += this.gravity * time.secondsPassed;
 
