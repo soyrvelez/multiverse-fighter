@@ -260,12 +260,6 @@ export class Character {
         this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
         this.position.y += this.velocity.y * time.secondsPassed;
 
-        if ([FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD]
-            .includes(this.currentState)
-        ) {
-            this.direction = this.getDirection();
-        }
-
         this.states[this.currentState].update(time, ctx);
         this.updateAnimation(time);
         this.updateStageConstraints(ctx);
