@@ -21,6 +21,8 @@ export class Character {
 
         this.opponent;
 
+        this.pushBox = { x: 0, y: 0, width: 0, height: 0 };
+
         this.states = {
             [FighterState.IDLE]: {
                 init: this.handleIdleInit.bind(this),
@@ -108,8 +110,26 @@ export class Character {
         this.changeState(FighterState.IDLE);
     }
 
-    getDirection = () => this.position.x >= this.opponent.position.x
-        ? FighterDirection.LEFT : FighterDirection.RIGHT;
+    getDirection() {
+        if (
+            this.position.x + this.pushBox.x + this.pushBox.width
+            <= this.opponent.position.x + this.opponent.pushBox.x
+            ) {
+            return FighterDirection.RIGHT;
+        } else if (
+            this.position.x + this.pushBox.x
+            >= this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width
+            ) {
+            return FighterDirection.LEFT;
+        }
+        return this.direction;
+    }
+
+    getPushBox(frameKey) {
+        const [, [x, y, width, height] = [0, 0, 0, 0]] = this.frames.get(frameKey);
+
+        return { x, y, width, height };
+    }
 
     changeState(newState) {
         if (newState === this.currentState
@@ -257,25 +277,24 @@ export class Character {
     }
 
     updateStageConstraints(ctx) {
-        const WIDTH = 32;
-
-        if (this.position.x > ctx.canvas.width - WIDTH) {
-            this.position.x = ctx.canvas.width - WIDTH;
+        if (this.position.x > ctx.canvas.width - this.pushBox.width) {
+            this.position.x = ctx.canvas.width - this.pushBox.width;
         }
-        if (this.position.x < WIDTH) {
-            this.position.x = WIDTH;
+        if (this.position.x < this.pushBox.width) {
+            this.position.x = this.pushBox.width;
         }
     }
 
     updateAnimation(time) {
         const animation = this.animations[this.currentState];
-        const [, frameDelay] = animation[this.animationFrame];
+        const [frameKey, frameDelay] = animation[this.animationFrame];
 
         if (time.previous > this.animationTimer + frameDelay) {
             this.animationTimer = time.previous;
 
             if (frameDelay > 0) {
                 this.animationFrame++;
+                this.pushBox = this.getPushBox(frameKey);
             }
 
             if (this.animationFrame >= animation.length) {
@@ -295,14 +314,35 @@ export class Character {
     }
 
     drawDebug(ctx) {
+        const [frameKey] = this.animations[this.currentState][this.animationFrame];
+        const pushBox = this.getPushBox(frameKey);
         ctx.lineWidth = 1;
 
+        // PushBox
+        ctx.beginPath();
+        ctx.strokeStyle = '#55FF55';
+        ctx.fillStyle = '#55FF5555';
+        ctx.fillRect(
+            Math.floor(this.position.x + pushBox.x) + 0.5,
+            Math.floor(this.position.y + pushBox.y) + 0.5,
+            pushBox.width,
+            pushBox.height,
+        );
+        ctx.rect(
+            Math.floor(this.position.x + pushBox.x) + 0.5,
+            Math.floor(this.position.y + pushBox.y) + 0.5,
+            pushBox.width,
+            pushBox.height,
+        );
+        ctx.stroke();
+
+        // Origin Point Tracker
         ctx.beginPath();
         ctx.strokeStyle = 'white';
-        ctx.moveTo(Math.floor(this.position.x) - 4.5, Math.floor(this.position.y));
-        ctx.lineTo(Math.floor(this.position.x) + 4.5, Math.floor(this.position.y));
-        ctx.moveTo(Math.floor(this.position.x), Math.floor(this.position.y) - 4.5);
-        ctx.lineTo(Math.floor(this.position.x), Math.floor(this.position.y) + 4.5);
+        ctx.moveTo(Math.floor(this.position.x) - 4, Math.floor(this.position.y) - 0.5);
+        ctx.lineTo(Math.floor(this.position.x) + 5, Math.floor(this.position.y) - 0.5);
+        ctx.moveTo(Math.floor(this.position.x) + 0.5, Math.floor(this.position.y) - 5);
+        ctx.lineTo(Math.floor(this.position.x) + 0.5, Math.floor(this.position.y) + 4);
         ctx.stroke();
     }
 
