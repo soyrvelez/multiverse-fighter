@@ -286,7 +286,7 @@ export class Character {
         }
     }
 
-    updateStageConstraints(ctx) {
+    updateStageConstraints(time, ctx) {
         if (this.position.x > ctx.canvas.width - this.pushBox.width) {
             this.position.x = ctx.canvas.width - this.pushBox.width;
         }
@@ -300,6 +300,13 @@ export class Character {
                     (this.opponent.position.x + this.opponent.pushBox.x) - (this.pushBox.x + this.pushBox.width),
                     this.pushBox.width,
                 );
+
+                if ([
+                    FighterState.IDLE, FighterState.CROUCH, FighterState.JUMP_UP,
+                    FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
+                ].includes(this.opponent.currentState)) {
+                    this.opponent.position.x += 66 * time.secondsPassed;
+                }
             }
 
             if (this.position.x >= this.opponent.position.x) {
@@ -308,6 +315,13 @@ export class Character {
                     + (this.pushBox.width + this.pushBox.x),
                     ctx.canvas.width - this.pushBox.width,
                 );
+
+                if ([
+                    FighterState.IDLE, FighterState.CROUCH, FighterState.JUMP_UP,
+                    FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
+                ].includes(this.opponent.currentState)) {
+                    this.opponent.position.x -= 66 * time.secondsPassed;
+                }
             }
         }
     }
@@ -336,7 +350,7 @@ export class Character {
 
         this.states[this.currentState].update(time, ctx);
         this.updateAnimation(time);
-        this.updateStageConstraints(ctx);
+        this.updateStageConstraints(time, ctx);
 
     }
 
