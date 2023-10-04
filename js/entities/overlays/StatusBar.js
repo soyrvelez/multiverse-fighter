@@ -143,21 +143,20 @@ export class StatusBar {
             this.drawFrame(ctx, `score-${strValue[i]}`, x + buffer + i * 12, 1);
     }
 
-    drawScoreName(ctx, name, x, y) {
-
+    drawScoreName(ctx, name, x) {
+        for (const index in name) {
+            this.drawFrame(ctx, `score-${name.charAt(index)}`, x + index * 12, 1);
+        }
     }
 
     drawScores(ctx) {
-        this.drawFrame(ctx, 'score-1', 30, 1);
-        this.drawFrame(ctx, 'score-P', 39, 1);
-
-
-
-        this.drawFrame(ctx, 'score-2', 322, 1);
-        this.drawFrame(ctx, 'score-P', 334, 1);
-
+        this.drawScoreName(ctx, 'P1', 4);
         this.drawScore(ctx, 1, 45);
+
+        this.drawScoreName(ctx, 'ANT', 133);
         this.drawScore(ctx, 50000, 177);
+
+        this.drawScoreName(ctx, 'P2', 269);
         this.drawScore(ctx, 1, 309);
     }
 
