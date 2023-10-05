@@ -12,6 +12,8 @@ import { getContext } from './utilities/context.js';
 
 export class FightingGame {
     constructor() {
+        this.stage = new Stage();
+
         this.ctx = getContext();
         this.fighters = [new Ryu(0), new Ken(1)];
 
@@ -21,7 +23,6 @@ export class FightingGame {
         this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - (this.ctx.canvas.width / 2), 16, this.fighters);
 
         this.entities = [
-            new Stage(),
             ...this.fighters.map(fighter => new Shadow(fighter)),
             ...this.fighters,
             new FpsCounter(),
@@ -36,6 +37,7 @@ export class FightingGame {
 
     update() {
         this.camera.update(this.frameTime, this.ctx);
+        this.stage.update(this.frameTime, this.ctx);
 
         for (const entity of this.entities) {
             entity.update(this.frameTime, this.ctx, this.camera);
@@ -43,9 +45,12 @@ export class FightingGame {
     }
 
     draw() {
+        this.stage.drawBackground(this.ctx, this.camera);
         for (const entity of this.entities) {
             entity.draw(this.ctx, this.camera);
         }
+
+        this.stage.drawForeground(this.ctx, this.camera);
     }
 
     // animation function

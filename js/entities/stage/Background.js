@@ -1,4 +1,5 @@
 import { FRAME_TIME } from '../../constants/game.js';
+import { STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import { drawFrame } from '../../utilities/context.js';
 import { BackgroundAnimation } from './shared/BackgroundAnimation.js';
 import { SkewedFloor } from './shared/SkewedFloor.js';
@@ -6,16 +7,23 @@ import { SkewedFloor } from './shared/SkewedFloor.js';
 export class Stage {
     constructor() {
         this.image = document.querySelector('img[alt="stage"]');
-        this.floor = new SkewedFloor(this.image, [8, 392, 896, 72]);
+        this.floor = new SkewedFloor(this.image, [8, 392, 896, 56]);
 
         this.frames = new Map([
             ['stage-background', [72, 208, 768, 176]],
             ['stage-boat', [8, 16, 521, 180]],
-            ['stage-floor', [8, 392, 896, 72]],
+            ['stage-floor-bottom', [8, 448, 896, 16]],
 
             // Grey Suit Fellow
             ['second-person-1', [600, 24, 16, 24]],
             ['second-person-2', [600, 88, 16, 24]],
+
+            // Floor elements
+            ['floor-element-small', [800, 184, 21, 16]],
+            ['floor-element-large', [760, 176, 31, 24]],
+
+            ['barrels', [560, 472, 151, 96]],
+
         ]);
 
         this.flag = new BackgroundAnimation(
@@ -177,10 +185,38 @@ export class Stage {
         this.seventhPerson.draw(ctx, this.boat.position.x + 128, this.boat.position.y + 24);
     }
 
-    draw(ctx, camera) {
+    drawFloor(ctx, camera) {
+        this.floor.draw(ctx, camera, 176);
+
+        this.drawFrame(
+            ctx, 'stage-floor-bottom',
+            STAGE_PADDING - camera.position.x * 1.1, 232 - camera.position.y,
+        );
+
+    }
+
+    drawSmallElements(ctx, camera) {
+        const cameraXOffset = camera.position.x / 1.54;
+        const y = 166 - camera.position.y;
+
+        this.drawFrame(ctx, 'floor-element-small', Math.floor(468 - 92 - cameraXOffset), y);
+        this.drawFrame(ctx, 'floor-element-small', Math.floor(468 + 92 - cameraXOffset), y);
+    }
+
+    drawBackground(ctx, camera) {
         this.drawSkyOcean(ctx, camera);
         this.drawBoat(ctx, camera);
-        this.floor.draw(ctx, camera, 176);
-        // this.drawFrame(ctx, 'stage-floor', Math.floor(192 - camera.position.x), 176 - camera.position.y);
+        this.drawFloor(ctx, camera);
+        this.drawSmallElements(ctx, camera);
+        this.drawFrame(ctx, 'barrels', Math.floor(872 - camera.position.x), 120 - camera.position.y);
+    }
+
+    drawForeground(ctx, camera) {
+        const midPoint = STAGE_MID_POINT + STAGE_PADDING;
+        const cameraXOffset = camera.position.x / 0.958;
+        const y = 200 - camera.position.y;
+
+        this.drawFrame(ctx, 'floor-element-large', Math.floor(midPoint - 147 - cameraXOffset), y);
+        this.drawFrame(ctx, 'floor-element-large', Math.floor(midPoint + 147 - cameraXOffset), y);
     }
 }
