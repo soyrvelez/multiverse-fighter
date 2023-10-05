@@ -130,14 +130,14 @@ export class Ken extends Character {
                 ['light-punch-1', 66], ['light-punch-1', FrameDelay.TRANSITION],
             ],
             [FighterState.MEDIUM_PUNCH]: [
-                ['med-punch-1', 16], ['med-punch-2', 33], ['med-punch-3', 66],
-                ['med-punch-2', 50], ['med-punch-1', 50],
-                ['med-punch-1', FrameDelay.TRANSITION],
+                ['medium-punch-1', 16], ['medium-punch-2', 33], ['medium-punch-3', 66],
+                ['medium-punch-2', 50], ['medium-punch-1', 50],
+                ['medium-punch-1', FrameDelay.TRANSITION],
             ],
             [FighterState.HEAVY_PUNCH]: [
-                ['med-punch-1', 50], ['med-punch-2', 33], ['heavy-punch-1', 100],
-                ['med-punch-2', 166], ['med-punch-1', 199],
-                ['med-punch-1', FrameDelay.TRANSITION],
+                ['medium-punch-1', 50], ['medium-punch-2', 33], ['heavy-punch-1', 100],
+                ['medium-punch-2', 166], ['medium-punch-1', 199],
+                ['medium-punch-1', FrameDelay.TRANSITION],
             ],
         };
 
