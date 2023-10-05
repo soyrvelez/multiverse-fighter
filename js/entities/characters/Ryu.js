@@ -60,6 +60,10 @@ export class Ryu extends Character {
             ['crouch-turn-1', [[[751, 46, 53, 61], [26, 58]], PushBox.CROUCH]],
             ['crouch-turn-2', [[[816, 46, 52, 61], [27, 58]], PushBox.CROUCH]],
             ['crouch-turn-3', [[[878, 46, 53, 61], [29, 58]], PushBox.CROUCH]],
+
+            // Light Punch
+            ['light-punch-1', [[[9, 365, 64, 91], [32, 88]], PushBox.CROUCH]],
+            ['light-punch-2', [[[98, 365, 92, 91], [32, 88]], PushBox.CROUCH]],
         ]);
 
         this.animations = {
@@ -110,6 +114,10 @@ export class Ryu extends Character {
             [FighterState.CROUCH_TURN]: [
                 ['crouch-turn-3', 33], ['crouch-turn-2', 33],
                 ['crouch-turn-1', 33], ['crouch-turn-1', FrameDelay.TRANSITION],
+            ],
+            [FighterState.LIGHT_PUNCH]: [
+                ['light-punch-1', 33], ['light-punch-2', 66],
+                ['light-punch-1', 66], ['light-punch-1', FrameDelay.TRANSITION],
             ],
         };
 
