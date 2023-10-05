@@ -9,6 +9,12 @@ export const Control = {
     RIGHT: 'right',
     UP: 'up',
     DOWN: 'down',
+    LIGHT_PUNCH: 'lightPunch',
+    MEDIUM_PUNCH: 'mediumPunch',
+    HEAVY_PUNCH: 'heavyPunch',
+    LIGHT_KICK: 'lightKick',
+    MEDIUM_KICK: 'mediumKick',
+    HEAVY_KICK: 'heavyKick',
 };
 
 // Mapping Keyboard and Xbox Controller Input to controls
@@ -23,12 +29,14 @@ export const controls = [
             [Control.RIGHT]: 15,
             [Control.UP]: 12,
             [Control.DOWN]: 13,
+            [Control.DOWN]: 0,
         },
         keyboard: {
             [Control.LEFT]: 'ArrowLeft',
             [Control.RIGHT]: 'ArrowRight',
             [Control.UP]: 'ArrowUp',
             [Control.DOWN]: 'ArrowDown',
+            [Control.LEFT_PUNCH]: 'ControlLeft',
         }
     },
     {
@@ -41,12 +49,14 @@ export const controls = [
             [Control.RIGHT]: 15,
             [Control.UP]: 12,
             [Control.DOWN]: 13,
+            [Control.DOWN]: 0,
         },
         keyboard: {
             [Control.LEFT]: 'KeyA',
             [Control.RIGHT]: 'KeyD',
             [Control.UP]: 'KeyW',
             [Control.DOWN]: 'KeyS',
+            [Control.LEFT_PUNCH]: 'KeyQ',
         }
     }
 ];

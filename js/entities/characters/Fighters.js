@@ -36,6 +36,7 @@ export class Character {
                     FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD,
                     FighterState.JUMP_UP, FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
                     FighterState.CROUCH_UP, FighterState.JUMP_LAND, FighterState.IDLE_TURN,
+                    FighterState.LIGHT_PUNCH,
                 ],
             },
             [FighterState.WALK_FORWARD]: {
@@ -183,7 +184,7 @@ export class Character {
     }
 
     handleStandardLightAttackInit() {
-
+        this.handleIdleInit();
     }
 
     handleJumpStartInit() {
@@ -324,7 +325,8 @@ export class Character {
     }
 
     handleLightPunchState() {
-
+        if (!this.isAnimationCompleted()) return;
+        this.changeState(FighterState.IDLE);
     }
 
     updateStageConstraints(time, ctx, camera) {
