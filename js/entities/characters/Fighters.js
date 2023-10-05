@@ -110,6 +110,11 @@ export class Character {
                 update: this.handleCrouchTurnState.bind(this),
                 validFrom: [FighterState.CROUCH],
             },
+            [FighterState.LIGHT_PUNCH]: {
+                init: this.handleStandardLightAttackInit.bind(this),
+                update: this.handleLightPunchState.bind(this),
+                validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
+            },
         }
         this.changeState(FighterState.IDLE);
     }
@@ -175,6 +180,10 @@ export class Character {
 
     handleCrouchDownInit() {
         this.resetVelocities();
+    }
+
+    handleStandardLightAttackInit() {
+
     }
 
     handleJumpStartInit() {
@@ -312,6 +321,10 @@ export class Character {
             this.direction = newDirection;
             this.changeState(FighterState.CROUCH_TURN);
         }
+    }
+
+    handleLightPunchState() {
+
     }
 
     updateStageConstraints(time, ctx, camera) {
