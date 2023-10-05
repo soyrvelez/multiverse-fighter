@@ -1,3 +1,4 @@
+import { Control } from '../../constants/control.js';
 import { FIGHTER_START_DISTANCE, FighterDirection, FighterState, FrameDelay, PUSH_FRICTION } from '../../constants/fighter.js';
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import * as control from '../../engine/InputHandler.js';
@@ -204,6 +205,8 @@ export class Character {
             this.changeState(FighterState.WALK_BACKWARD);
         } else if (control.isForward(this.playerId, this.direction)) {
             this.changeState(FighterState.WALK_FORWARD);
+        } else if (control.isControlDown(this.playerId, Control.LIGHT_PUNCH)) {
+            this.changeState(FighterState.LIGHT_PUNCH);
         }
 
         const newDirection = this.getDirection();

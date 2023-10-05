@@ -29,14 +29,14 @@ export const controls = [
             [Control.RIGHT]: 15,
             [Control.UP]: 12,
             [Control.DOWN]: 13,
-            [Control.DOWN]: 0,
+            [Control.LIGHT_PUNCH]: 0,
         },
         keyboard: {
             [Control.LEFT]: 'ArrowLeft',
             [Control.RIGHT]: 'ArrowRight',
             [Control.UP]: 'ArrowUp',
             [Control.DOWN]: 'ArrowDown',
-            [Control.LEFT_PUNCH]: 'ControlLeft',
+            [Control.LIGHT_PUNCH]: 'ControlLeft',
         }
     },
     {
@@ -49,14 +49,14 @@ export const controls = [
             [Control.RIGHT]: 15,
             [Control.UP]: 12,
             [Control.DOWN]: 13,
-            [Control.DOWN]: 0,
+            [Control.LIGHT_PUNCH]: 0,
         },
         keyboard: {
             [Control.LEFT]: 'KeyA',
             [Control.RIGHT]: 'KeyD',
             [Control.UP]: 'KeyW',
             [Control.DOWN]: 'KeyS',
-            [Control.LEFT_PUNCH]: 'KeyQ',
+            [Control.LIGHT_PUNCH]: 'KeyQ',
         }
     }
 ];

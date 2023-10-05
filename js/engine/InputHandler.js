@@ -4,7 +4,7 @@ import { FighterDirection } from '../constants/fighter.js';
 const heldKeys = new Set();
 const gamePads = new Map();
 
-const mappedKeys = controls.map(({keyboard}) => Object.values(keyboard)).flat();
+const mappedKeys = controls.map(({ keyboard }) => Object.values(keyboard)).flat();
 
 function handleKeyDown(event) {
     if (!mappedKeys.includes(event.code)) return;
@@ -62,6 +62,9 @@ export const isButtonUp = (padId, button) => !gamePads.get(padId)?.buttons[butto
 
 export const isAxeGreater = (padId, axeId, value) => gamePads.get(padId)?.axes[axeId] >= value;
 export const isAxeLower = (padId, axeId, value) => gamePads.get(padId)?.axes[axeId] <= value;
+
+export const isControlDown = (id, control) => isKeyDown(controls[id].keyboard[control])
+    || isButtonDown(id, controls[id].gamePad[control]);
 
 export const isLeft = (id) => isKeyDown(controls[id].keyboard[Control.LEFT])
     || isButtonDown(id, controls[id].gamePad[Control.LEFT])
