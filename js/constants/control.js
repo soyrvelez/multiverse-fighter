@@ -32,6 +32,9 @@ export const controls = [
             [Control.LIGHT_PUNCH]: 2,
             [Control.MEDIUM_PUNCH]: 3,
             [Control.HEAVY_PUNCH]: 5,
+            [Control.LIGHT_KICK]: 0,
+            [Control.MEDIUM_KICK]: 1,
+            [Control.HEAVY_KICK]: 4,
         },
         keyboard: {
             [Control.LEFT]: 'ArrowLeft',
@@ -41,6 +44,9 @@ export const controls = [
             [Control.LIGHT_PUNCH]: 'ControlLeft',
             [Control.MEDIUM_PUNCH]: 'AltLeft',
             [Control.HEAVY_PUNCH]: 'Space',
+            [Control.LIGHT_KICK]: 'ShiftLeft',
+            [Control.MEDIUM_KICK]: 'KeyZ',
+            [Control.HEAVY_KICK]: 'KeyX',
         }
     },
     {
@@ -56,6 +62,9 @@ export const controls = [
             [Control.LIGHT_PUNCH]: 2,
             [Control.MEDIUM_PUNCH]: 3,
             [Control.HEAVY_PUNCH]: 5,
+            [Control.LIGHT_KICK]: 0,
+            [Control.MEDIUM_KICK]: 1,
+            [Control.HEAVY_KICK]: 4,
         },
         keyboard: {
             [Control.LEFT]: 'KeyD',
@@ -65,7 +74,9 @@ export const controls = [
             [Control.LIGHT_PUNCH]: 'KeyQ',
             [Control.MEDIUM_PUNCH]: 'KeyW',
             [Control.HEAVY_PUNCH]: 'KeyE',
-
+            [Control.LIGHT_KICK]: 'KeyA',
+            [Control.MEDIUM_KICK]: 'KeyS',
+            [Control.HEAVY_KICK]: 'KeyD',
         }
     }
 ];
