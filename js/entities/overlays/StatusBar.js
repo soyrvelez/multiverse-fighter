@@ -53,7 +53,7 @@ export class StatusBar {
             ['score-8', [113, 101, 10, 10]],
             ['score-9', [125, 101, 10, 10]],
 
-            // Letter P for score headers
+            // Letters for score headers
             ['score-@', [17, 113, 10, 10]],
             ['score-A', [29, 113, 11, 10]],
             ['score-B', [41, 113, 10, 10]],
@@ -143,20 +143,20 @@ export class StatusBar {
             this.drawFrame(ctx, `score-${strValue[i]}`, x + buffer + i * 12, 1);
     }
 
-    drawScoreName(ctx, name, x) {
-        for (const index in name) {
-            this.drawFrame(ctx, `score-${name.charAt(index)}`, x + index * 12, 1);
+    drawScoreLabel(ctx, label, x) {
+        for (const index in label) {
+            this.drawFrame(ctx, `score-${label.charAt(index)}`, x + index * 12, 1);
         }
     }
 
     drawScores(ctx) {
-        this.drawScoreName(ctx, 'P1', 4);
+        this.drawScoreLabel(ctx, 'P1', 4);
         this.drawScore(ctx, 1, 45);
 
-        this.drawScoreName(ctx, 'ANT', 133);
+        this.drawScoreLabel(ctx, 'ROD', 133);
         this.drawScore(ctx, 50000, 177);
 
-        this.drawScoreName(ctx, 'P2', 269);
+        this.drawScoreLabel(ctx, 'P2', 269);
         this.drawScore(ctx, 1, 309);
     }
 
