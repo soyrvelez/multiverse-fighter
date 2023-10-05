@@ -62,6 +62,10 @@ export class Ken extends Character {
             ['crouch-turn-1', [[[356, 802, 53, 61], [26, 58]], PushBox.CROUCH]],
             ['crouch-turn-2', [[[424, 802, 52, 61], [27, 58]], PushBox.CROUCH]],
             ['crouch-turn-3', [[[486, 802, 53, 61], [29, 58]], PushBox.CROUCH]],
+
+            // Light Punch
+            ['light-punch-1', [[[3, 1152, 64, 91], [32, 88]], PushBox.IDLE]],
+            ['light-punch-2', [[[72, 1152, 92, 91], [32, 88]], PushBox.IDLE]],
         ]);
 
         this.animations = {
@@ -112,6 +116,10 @@ export class Ken extends Character {
             [FighterState.CROUCH_TURN]: [
                 ['crouch-turn-3', 33], ['crouch-turn-2', 33],
                 ['crouch-turn-1', 33], ['crouch-turn-1', FrameDelay.TRANSITION],
+            ],
+            [FighterState.LIGHT_PUNCH]: [
+                ['light-punch-1', 33], ['light-punch-2', 66],
+                ['light-punch-1', 66], ['light-punch-1', FrameDelay.TRANSITION],
             ],
         };
 
