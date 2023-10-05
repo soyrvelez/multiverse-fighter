@@ -37,7 +37,7 @@ export class Character {
                     FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD,
                     FighterState.JUMP_UP, FighterState.JUMP_FORWARD, FighterState.JUMP_BACKWARD,
                     FighterState.CROUCH_UP, FighterState.JUMP_LAND, FighterState.IDLE_TURN,
-                    FighterState.LIGHT_PUNCH,
+                    FighterState.LIGHT_PUNCH, FighterState.MEDIUM_PUNCH, FighterState.HEAVY_PUNCH,
                 ],
             },
             [FighterState.WALK_FORWARD]: {
@@ -117,6 +117,16 @@ export class Character {
                 update: this.handleLightPunchState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
+            [FighterState.MEDIUM_PUNCH]: {
+                init: this.handleStandardMediumAttackInit.bind(this),
+                update: this.handleMediumPunchState.bind(this),
+                validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
+            },
+            [FighterState.HEAVY_PUNCH]: {
+                init: this.handleStandardHeavyAttackInit.bind(this),
+                update: this.handleMediumPunchState.bind(this),
+                validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
+            },
         }
         this.changeState(FighterState.IDLE);
     }
@@ -180,19 +190,27 @@ export class Character {
         this.handleMoveInit();
     }
 
-    handleCrouchDownInit() {
-        this.resetVelocities();
-    }
-
-    handleStandardLightAttackInit() {
-        this.handleIdleInit();
-    }
-
     handleJumpStartInit() {
         this.resetVelocities();
     }
 
     handleJumpLandInit() {
+        this.resetVelocities();
+    }
+
+    handleCrouchDownInit() {
+        this.resetVelocities();
+    }
+
+    handleStandardLightAttackInit() {
+        this.resetVelocities();
+    }
+
+    handleStandardMediumAttackInit() {
+        this.resetVelocities();
+    }
+
+    handleStandardHeavyAttackInit() {
         this.resetVelocities();
     }
 
@@ -205,8 +223,12 @@ export class Character {
             this.changeState(FighterState.WALK_BACKWARD);
         } else if (control.isForward(this.playerId, this.direction)) {
             this.changeState(FighterState.WALK_FORWARD);
-        } else if (control.isControlDown(this.playerId, Control.LIGHT_PUNCH)) {
+        } else if (control.isLightPunch(this.playerId)) {
             this.changeState(FighterState.LIGHT_PUNCH);
+        } else if (control.isMediumPunch(this.playerId)) {
+            this.changeState(FighterState.MEDIUM_PUNCH);
+        } else if (control.isHeavyPunch(this.playerId)) {
+            this.changeState(FighterState.HEAVY_PUNCH);
         }
 
         const newDirection = this.getDirection();
@@ -328,6 +350,14 @@ export class Character {
     }
 
     handleLightPunchState() {
+        if (this.animationFrame < 2) return;
+        if (control.isLightPunch(this.playerId)) this.animationFrame = 0;
+
+        if (!this.isAnimationCompleted()) return;
+        this.changeState(FighterState.IDLE);
+    }
+
+    handleMediumPunchState() {
         if (!this.isAnimationCompleted()) return;
         this.changeState(FighterState.IDLE);
     }
