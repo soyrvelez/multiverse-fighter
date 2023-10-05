@@ -1,5 +1,5 @@
 import { Ryu } from './entities/characters/Ryu.js';
-import { Stage } from './entities/Background.js';
+import { Stage } from './entities/stage/Background.js';
 import { FpsCounter } from './entities/FpsCounter.js';
 import { STAGE_MID_POINT, STAGE_PADDING } from './constants/stage.js';
 import { Ken } from './entities/characters/Ken.js';
