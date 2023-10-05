@@ -9,10 +9,21 @@ export class Stage {
             ['stage-boat', [8, 16, 521, 180]],
             ['stage-floor', [8, 392, 896, 72]],
         ]);
+
+        this.boat = {
+            animationFrame: 0,
+            animationTimer: 0,
+            animationDelay: 0,
+            animation: [0, -1, -2, -3, -4, -3, -2, -1],
+        };
     }
 
-    update() {
+    updateBoat(time) {
 
+    }
+
+    update(time) {
+        this.updateBoat(time);
     }
 
     drawFrame(ctx, frameKey, x, y) {
