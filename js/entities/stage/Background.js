@@ -32,20 +32,6 @@ export class Stage {
             [['first-person-1', 100], ['first-person-2', 133], ['first-person-3', 664], ['first-person-2', 133]],
         );
 
-        this.secondPerson = new BackgroundAnimation(
-            this.image,
-            [
-                ['second-person-1', [704, 16, 48, 56]],
-                ['second-person-2', [704, 80, 48, 56]],
-                ['second-person-3', [704, 144, 48, 56]],
-            ],
-            [
-                ['second-person-1', 996], ['second-person-2', 133], ['second-person-3', 100],
-                ['second-person-2', 133], ['second-person-1', 249], ['second-person-2', 133],
-                ['second-person-3', 100], ['second-person-2', 133],
-            ],
-        );
-
         this.thirdPerson = new BackgroundAnimation(
             this.image,
             [
@@ -66,16 +52,31 @@ export class Stage {
             ['fourth-person-2', 133]],
         );
 
-        // Brown Coat Dude
+        // Blue coat fellow
         this.fifthPerson = new BackgroundAnimation(
             this.image,
             [
-                ['fifth-person-1', [760, 16, 40, 40]],
-                ['fifth-person-2', [760, 64, 40, 40]],
-                ['fifth-person-3', [760, 112, 40, 40]],
+                ['fifth-person-1', [704, 16, 48, 56]],
+                ['fifth-person-2', [704, 80, 48, 56]],
+                ['fifth-person-3', [704, 144, 48, 56]],
             ],
-            [['fifth-person-1', 133], ['fifth-person-2', 133], ['fifth-person-3', 133],
-            ['fifth-person-2', 133]],
+            [
+                ['fifth-person-1', 996], ['fifth-person-2', 133], ['fifth-person-3', 100],
+                ['fifth-person-2', 133], ['fifth-person-1', 249], ['fifth-person-2', 133],
+                ['fifth-person-3', 100], ['fifth-person-2', 133],
+            ],
+        );
+
+        // Brown Coat Dude
+        this.sixthPerson = new BackgroundAnimation(
+            this.image,
+            [
+                ['sixth-person-1', [760, 16, 40, 40]],
+                ['sixth-person-2', [760, 64, 40, 40]],
+                ['sixth-person-3', [760, 112, 40, 40]],
+            ],
+            [['sixth-person-1', 133], ['sixth-person-2', 133], ['sixth-person-3', 133],
+            ['sixth-person-2', 133]],
         );
 
         this.seventhPerson = new BackgroundAnimation(
@@ -117,10 +118,10 @@ export class Stage {
         this.flag.update(time);
         this.updateBoat(time);
         this.firstPerson.update(time);
-        this.secondPerson.update(time);
         this.thirdPerson.update(time);
         this.fourthPerson.update(time);
         this.fifthPerson.update(time);
+        this.sixthPerson.update(time);
         this.seventhPerson.update(time);
     }
 
@@ -142,10 +143,10 @@ export class Stage {
 
         this.drawFrame(ctx, 'stage-boat', this.boat.position.x, this.boat.position.y);
         this.firstPerson.draw(ctx, this.boat.position.x + 128, this.boat.position.y + 96);
-        this.secondPerson.draw(ctx, this.boat.position.x + 288, this.boat.position.y + 96);
         this.thirdPerson.draw(ctx, this.boat.position.x + 192, this.boat.position.y + 104);
         this.fourthPerson.draw(ctx, this.boat.position.x + 224, this.boat.position.y + 104);
-        this.fifthPerson.draw(ctx, this.boat.position.x + 88, this.boat.position.y + 24);
+        this.fifthPerson.draw(ctx, this.boat.position.x + 288, this.boat.position.y + 96);
+        this.sixthPerson.draw(ctx, this.boat.position.x + 88, this.boat.position.y + 24);
         this.seventhPerson.draw(ctx, this.boat.position.x + 128, this.boat.position.y + 24);
     }
 
