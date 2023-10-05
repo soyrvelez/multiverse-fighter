@@ -4,7 +4,7 @@ import { drawFrame } from '../../utilities/context.js';
 import { BackgroundAnimation } from './shared/BackgroundAnimation.js';
 import { SkewedFloor } from './shared/SkewedFloor.js';
 
-export class Stage {
+export class KenStage {
     constructor() {
         this.image = document.querySelector('img[alt="stage"]');
         this.floor = new SkewedFloor(this.image, [8, 392, 896, 56]);
@@ -203,6 +203,15 @@ export class Stage {
         this.drawFrame(ctx, 'floor-element-small', Math.floor(468 + 92 - cameraXOffset), y);
     }
 
+    drawLargeElements(ctx, camera) {
+        const midPoint = STAGE_MID_POINT + STAGE_PADDING;
+        const cameraXOffset = camera.position.x / 0.958;
+        const y = 200 - camera.position.y;
+
+        this.drawFrame(ctx, 'floor-element-large', Math.floor(midPoint - 147 - cameraXOffset), y);
+        this.drawFrame(ctx, 'floor-element-large', Math.floor(midPoint + 147 - cameraXOffset), y);
+    }
+
     drawBackground(ctx, camera) {
         this.drawSkyOcean(ctx, camera);
         this.drawBoat(ctx, camera);
@@ -212,11 +221,6 @@ export class Stage {
     }
 
     drawForeground(ctx, camera) {
-        const midPoint = STAGE_MID_POINT + STAGE_PADDING;
-        const cameraXOffset = camera.position.x / 0.958;
-        const y = 200 - camera.position.y;
-
-        this.drawFrame(ctx, 'floor-element-large', Math.floor(midPoint - 147 - cameraXOffset), y);
-        this.drawFrame(ctx, 'floor-element-large', Math.floor(midPoint + 147 - cameraXOffset), y);
+        this.drawLargeElements(ctx, camera);
     }
 }
