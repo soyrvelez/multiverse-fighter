@@ -1,15 +1,21 @@
 import { FRAME_TIME } from '../../constants/game.js';
 import { drawFrame } from '../../utilities/context.js';
 import { BackgroundAnimation } from './shared/BackgroundAnimation.js';
+import { SkewedFloor } from './shared/SkewedFloor.js';
 
 export class Stage {
     constructor() {
         this.image = document.querySelector('img[alt="stage"]');
+        this.floor = new SkewedFloor(this.image, [8, 392, 896, 72]);
 
         this.frames = new Map([
             ['stage-background', [72, 208, 768, 176]],
             ['stage-boat', [8, 16, 521, 180]],
             ['stage-floor', [8, 392, 896, 72]],
+
+            // Grey Suit Fellow
+            ['second-person-1', [600, 24, 16, 24]],
+            ['second-person-2', [600, 88, 16, 24]],
         ]);
 
         this.flag = new BackgroundAnimation(
@@ -31,6 +37,13 @@ export class Stage {
             ],
             [['first-person-1', 100], ['first-person-2', 133], ['first-person-3', 664], ['first-person-2', 133]],
         );
+
+        this.secondPerson = {
+            animationFrame: 0,
+            animationTimer: 0,
+            animationDelay: 0,
+
+        }
 
         this.thirdPerson = new BackgroundAnimation(
             this.image,
@@ -114,10 +127,19 @@ export class Stage {
         }
     }
 
+    updateSecondPerson(time) {
+        if (time.previous > this.secondPerson.animationTimer + this.secondPerson.animationDelay) {
+            this.secondPerson.animationTimer = time.previous;
+            this.secondPerson.animationDelay = 100 + (Math.random() * 900);
+            this.secondPerson.animationFrame = !this.secondPerson.animationFrame;
+        }
+    }
+
     update(time) {
         this.flag.update(time);
         this.updateBoat(time);
         this.firstPerson.update(time);
+        this.updateSecondPerson(time);
         this.thirdPerson.update(time);
         this.fourthPerson.update(time);
         this.fifthPerson.update(time);
@@ -143,6 +165,11 @@ export class Stage {
 
         this.drawFrame(ctx, 'stage-boat', this.boat.position.x, this.boat.position.y);
         this.firstPerson.draw(ctx, this.boat.position.x + 128, this.boat.position.y + 96);
+        this.drawFrame(
+            ctx, `second-person-${this.secondPerson.animationFrame + 1}`,
+            this.boat.position.x + 167,
+            this.boat.position.y + 112
+        );
         this.thirdPerson.draw(ctx, this.boat.position.x + 192, this.boat.position.y + 104);
         this.fourthPerson.draw(ctx, this.boat.position.x + 224, this.boat.position.y + 104);
         this.fifthPerson.draw(ctx, this.boat.position.x + 288, this.boat.position.y + 96);
@@ -153,6 +180,7 @@ export class Stage {
     draw(ctx, camera) {
         this.drawSkyOcean(ctx, camera);
         this.drawBoat(ctx, camera);
-        this.drawFrame(ctx, 'stage-floor', Math.floor(192 - camera.position.x), 176 - camera.position.y);
+        this.floor.draw(ctx, camera, 176);
+        // this.drawFrame(ctx, 'stage-floor', Math.floor(192 - camera.position.x), 176 - camera.position.y);
     }
 }
