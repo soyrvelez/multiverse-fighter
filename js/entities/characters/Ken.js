@@ -8,11 +8,12 @@ export class Ken extends Character {
         this.image = document.querySelector('img[alt="ken"]');
 
         this.frames = new Map([
+            // spirte name / sprite x-y origin / sprite dimension / pushbox state / hitboxes x,y, dimensions
             // Idle Sprites
-            ['idle-1', [[[346, 688, 60, 89], [34, 86]], PushBox.IDLE]],
-            ['idle-2', [[[2, 687, 59, 90], [33, 87]], PushBox.IDLE]],
-            ['idle-3', [[[72, 685, 58, 92], [32, 89]], PushBox.IDLE]],
-            ['idle-4', [[[142, 684, 55, 93], [31, 90]], PushBox.IDLE]],
+            ['idle-1', [[[346, 688, 60, 89], [34, 86]], PushBox.IDLE, [[-8, -88, 24, 16], [-26, -74, 40, 42], [-26, -31, 40, 32]]]],
+            ['idle-2', [[[2, 687, 59, 90], [33, 87]], PushBox.IDLE, [[-8, -88, 24, 16], [-26, -74, 40, 42], [-26, -31, 40, 32]]]],
+            ['idle-3', [[[72, 685, 58, 92], [32, 89]], PushBox.IDLE, [[-8, -88, 24, 16], [-26, -74, 40, 42], [-26, -31, 40, 32]]]],
+            ['idle-4', [[[142, 684, 55, 93], [31, 90]], PushBox.IDLE, [[-8, -88, 24, 16], [-26, -74, 40, 42], [-26, -31, 40, 32]]]],
 
             // Forward Movement Sprites
             ['forwards-1', [[[8, 872, 53, 83], [27, 81]], PushBox.IDLE]],
