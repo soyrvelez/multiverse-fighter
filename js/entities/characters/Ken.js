@@ -115,11 +115,11 @@ export class Ken extends Character {
             [FighterState.JUMP_FORWARD]: [
                 ['jump-roll-1', 13], ['jump-roll-2', 5], ['jump-roll-3', 3],
                 ['jump-roll-4', 3], ['jump-roll-5', 3], ['jump-roll-6', 5],
-                ['jump-roll-7', FrameDelay.FREEZE],
+                ['jump-roll-6', FrameDelay.FREEZE],
             ],
             [FighterState.JUMP_BACKWARD]: [
-                ['jump-roll-7', 15], ['jump-roll-6', 3], ['jump-roll-5', 3],
-                ['jump-roll-4', 3], ['jump-roll-3', 3], ['jump-roll-2', 3],
+                ['jump-roll-6', 15], ['jump-roll-5', 3], ['jump-roll-4', 3],
+                ['jump-roll-3', 3], ['jump-roll-2', 3],
                 ['jump-roll-1', FrameDelay.FREEZE],
             ],
             [FighterState.JUMP_LAND]: [
