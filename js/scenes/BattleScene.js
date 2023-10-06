@@ -1,32 +1,36 @@
 import { Camera } from '../engine/Camera.js';
-import { STAGE_MID_POINT, STAGE_PADDING } from '../constants/stage';
-import { FpsCounter } from '../entities/overlays/FpsCounter.js';
-import { StatusBar } from '../entities/overlays/StatusBar.js';
 import { KenStage } from '../entities/stage/KenStage.js';
+import { StatusBar } from '../entities/overlays/StatusBar.js';
+import { FpsCounter } from '../entities/overlays/FpsCounter.js';
+import { STAGE_MID_POINT, STAGE_PADDING } from '../constants/stage.js';
+import { Ken } from '../entities/characters/Ken.js'
+import { Ryu } from '../entities/characters/Ryu.js'
+import { Shadow } from '../entities/characters/Shadow.js'
 
 export class BattleScene {
     fighters = [];
     camera = undefined;
     shadows = [];
+    entities = [];
 
     constructor() {
         this.stage = new KenStage();
+
+        this.fighters = this.getFighterEntities();
+        this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - 192, 16, this.fighters);
+        this.shadows = this.fighters.map(fighter => new Shadow(fighter));
 
         this.overlays = [
             new StatusBar(this.fighters),
             new FpsCounter(),
         ];
-
-        this.fighters = this.getFighterEntities();
-        this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - 192, 16, this.fighters);
-        this.shadows = this.fighters.map(fighters => new Shadow(fighter));
     }
 
     getFighterEntities() {
         const fighterEntities = [new Ryu(0), new Ken(1)];
 
-        this.fighters[0].opponent = this.fighters[1];
-        this.fighters[1].opponent = this.fighters[0];
+        fighterEntities[0].opponent = fighterEntities[1];
+        fighterEntities[1].opponent = fighterEntities[0];
 
         return fighterEntities;
     }
@@ -61,7 +65,7 @@ export class BattleScene {
         this.updateShadows(time, ctx);
         this.stage.update(time);
         this.updateEntities(time, ctx);
-        this.camera.update(time);
+        this.camera.update(time, ctx);
         this.updateOverlays(time, ctx);
     }
 

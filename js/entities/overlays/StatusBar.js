@@ -2,7 +2,7 @@ import { TIME_DELAY, TIME_FLASH_DELAY, TIME_FRAME_KEYS } from '../../constants/b
 import { drawFrame } from '../../utilities/context.js';
 
 export class StatusBar {
-    constructor(fighters,) {
+    constructor(fighters) {
         this.image = document.querySelector('img[alt="game-ui"]');
 
         this.time = 99;
