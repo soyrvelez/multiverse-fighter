@@ -155,7 +155,7 @@ export class Ryu extends Character {
                 ['medium-punch-1', FrameDelay.TRANSITION],
             ],
             [FighterState.LIGHT_KICK]: [
-                ['medium-punch-1', 3], ['light-kick-1', 3], ['light-kick-2', 133],
+                ['medium-punch-1', 3], ['light-kick-1', 3], ['light-kick-2', 8],
                 ['light-kick-1', 4], ['medium-punch-1', 16],
                 ['medium-punch-1', FrameDelay.TRANSITION],
             ],
