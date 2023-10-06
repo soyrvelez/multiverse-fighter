@@ -6,6 +6,8 @@ import { STAGE_MID_POINT, STAGE_PADDING } from '../constants/stage.js';
 import { Ken } from '../entities/characters/Ken.js'
 import { Ryu } from '../entities/characters/Ryu.js'
 import { Shadow } from '../entities/characters/Shadow.js'
+import { gameState } from '../state/gameState.js';
+import { FighterId } from '../constants/fighter.js';
 
 export class BattleScene {
     fighters = [];
@@ -26,8 +28,25 @@ export class BattleScene {
         ];
     }
 
+    getFighterEntityClass(id) {
+        switch(id) {
+            case FighterId.RYU:
+                return Ryu;
+            case FighterId.KEN:
+                return Ken;
+            default:
+                throw new Error('Character Not Found');
+        }
+    }
+
+    getFighterEntity(fighterState, index) {
+        const FighterEntityClass = this.getFighterEntityClass(fighterState.id);
+
+        return new FighterEntityClass(index);
+    }
+
     getFighterEntities() {
-        const fighterEntities = [new Ryu(0), new Ken(1)];
+        const fighterEntities = gameState.fighters.map(this.getFighterEntity.bind(this));
 
         fighterEntities[0].opponent = fighterEntities[1];
         fighterEntities[1].opponent = fighterEntities[0];

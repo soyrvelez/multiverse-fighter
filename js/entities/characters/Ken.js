@@ -3,7 +3,7 @@ import { Character } from "./Fighters.js";
 
 export class Ken extends Character {
     constructor(playerId) {
-        super('Ken', playerId);
+        super(playerId);
 
         this.image = document.querySelector('img[alt="ken"]');
 
