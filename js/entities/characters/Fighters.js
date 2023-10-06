@@ -8,7 +8,7 @@ import {
 } from '../../constants/fighter.js';
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import * as control from '../../engine/InputHandler.js';
-import { getActualBoxDimensions, rectsOverlap } from '../../utilities/collisions.js';
+import { boxOverlap, getActualBoxDimensions, rectsOverlap } from '../../utilities/collisions.js';
 
 export class Character {
     constructor(name, playerId) {
@@ -432,7 +432,7 @@ export class Character {
         if (this.hasCollidedWithOpponent()) {
             if (this.position.x <= this.opponent.position.x) {
                 this.position.x = Math.max(
-                    (this.opponent.position.x + this.opponent.pushBox.x) - (this.boxes.push.x + this.boxes.push.width),
+                    (this.opponent.position.x + this.opponent.boxes.push.x) - (this.boxes.push.x + this.boxes.push.width),
                     camera.position.x + this.boxes.push.width,
                 );
 
@@ -446,7 +446,7 @@ export class Character {
 
             if (this.position.x >= this.opponent.position.x) {
                 this.position.x = Math.min(
-                    (this.opponent.position.x + this.opponent.pushBox.x + this.opponent.pushBox.width)
+                    (this.opponent.position.x + this.opponent.boxes.push.x + this.opponent.boxes.push.width)
                     + (this.boxes.push.width + this.boxes.push.x),
                     camera.position.x + ctx.canvas.width - this.boxes.push.width,
                 );
@@ -489,7 +489,12 @@ export class Character {
                 { x, y, width, height },
             );
 
+            if (!boxOverlap(actualHitBox, actualOpponentHurtBox)) return;
 
+            const hurtIndex = this.opponent.boxes.hurt.indexOf(hurt);
+            const hurtName = ['head', 'body', 'feet'];
+
+            console.log(`${this.name} has hit ${this.opponent.name}'s ${hurtName[hurtIndex]}`);
         }
     }
 
