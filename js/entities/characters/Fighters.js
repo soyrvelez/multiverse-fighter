@@ -6,6 +6,7 @@ import {
     PUSH_FRICTION,
     FighterAttackType
 } from '../../constants/fighter.js';
+import { FRAME_TIME } from '../../constants/game.js';
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import * as control from '../../engine/InputHandler.js';
 import { boxOverlap, getActualBoxDimensions, rectsOverlap } from '../../utilities/collisions.js';
@@ -175,8 +176,7 @@ export class Character {
     );
 
     resetVelocities() {
-        this.velocity.x = 0;
-        this.velocity.y = 0;
+        this.velocity = { x: 0, y: 0 };
     }
 
     getDirection() {
@@ -210,7 +210,11 @@ export class Character {
 
     changeState(newState) {
         if (newState === this.currentState
-            || !this.states[newState].validFrom.includes(this.currentState)) return;
+            || !this.states[newState].validFrom.includes(this.currentState)) {
+            console.warn(`Illegal transition from ${this.currentState} to ${newState}`);
+            return;
+        }
+
         this.currentState = newState;
         this.animationFrame = 0;
 
@@ -286,24 +290,48 @@ export class Character {
     }
 
     handleWalkForwardState() {
-        if (!control.isForward(this.playerId, this.direction)) {
-            this.changeState(FighterState.IDLE);
-        } else if (control.isUp(this.playerId)) {
+        if (!control.isForward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
+        if (control.isUp(this.playerId)) {
             this.changeState(FighterState.JUMP_START);
-        } else if (control.isDown(this.playerId)) {
-            this.changeState(FighterState.CROUCH_DOWN);
+        }
+        if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
+
+        if (control.isLightPunch(this.playerId)) {
+            this.changeState(FighterState.LIGHT_PUNCH);
+        } else if (control.isMediumPunch(this.playerId)) {
+            this.changeState(FighterState.MEDIUM_PUNCH);
+        } else if (control.isHeavyPunch(this.playerId)) {
+            this.changeState(FighterState.HEAVY_PUNCH);
+        } else if (control.isLightKick(this.playerId)) {
+            this.changeState(FighterState.LIGHT_KICK);
+        } else if (control.isMediumKick(this.playerId)) {
+            this.changeState(FighterState.MEDIUM_KICK);
+        } else if (control.isHeavyKick(this.playerId)) {
+            this.changeState(FighterState.HEAVY_KICK);
         }
 
         this.direction = this.getDirection();
     }
 
     handleWalkBackwardsState() {
-        if (!control.isBackward(this.playerId, this.direction)) {
-            this.changeState(FighterState.IDLE);
-        } else if (control.isUp(this.playerId)) {
+        if (!control.isBackward(this.playerId, this.direction)) this.changeState(FighterState.IDLE);
+        if (control.isUp(this.playerId)) {
             this.changeState(FighterState.JUMP_START);
-        } else if (control.isDown(this.playerId)) {
-            this.changeState(FighterState.CROUCH_DOWN);
+        }
+        if (control.isDown(this.playerId)) this.changeState(FighterState.CROUCH_DOWN);
+
+        if (control.isLightPunch(this.playerId)) {
+            this.changeState(FighterState.LIGHT_PUNCH);
+        } else if (control.isMediumPunch(this.playerId)) {
+            this.changeState(FighterState.MEDIUM_PUNCH);
+        } else if (control.isHeavyPunch(this.playerId)) {
+            this.changeState(FighterState.HEAVY_PUNCH);
+        } else if (control.isLightKick(this.playerId)) {
+            this.changeState(FighterState.LIGHT_KICK);
+        } else if (control.isMediumKick(this.playerId)) {
+            this.changeState(FighterState.MEDIUM_KICK);
+        } else if (control.isHeavyKick(this.playerId)) {
+            this.changeState(FighterState.HEAVY_KICK);
         }
 
         this.direction = this.getDirection();
@@ -465,7 +493,7 @@ export class Character {
         const animation = this.animations[this.currentState];
         const [, frameDelay] = animation[this.animationFrame];
 
-        if (time.previous <= this.animationTimer + frameDelay) return;
+        if (time.previous <= this.animationTimer + frameDelay * FRAME_TIME) return;
         this.animationTimer = time.previous;
 
         if (frameDelay <= FrameDelay.FREEZE) return;

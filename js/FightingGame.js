@@ -16,13 +16,13 @@ export class FightingGame {
         previous: 0,
         secondsPassed: 0,
     };
+    camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - (this.ctx.canvas.width / 2), 16, this.fighters);
 
     constructor() {
         this.stage = new KenStage();
 
         this.fighters[0].opponent = this.fighters[1];
         this.fighters[1].opponent = this.fighters[0];
-        this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - (this.ctx.canvas.width / 2), 16, this.fighters);
 
         this.entities = [
             ...this.fighters.map(fighter => new Shadow(fighter)),
