@@ -1,5 +1,11 @@
-import { Control } from '../../constants/control.js';
-import { FIGHTER_START_DISTANCE, FighterDirection, FighterState, FrameDelay, PUSH_FRICTION } from '../../constants/fighter.js';
+import {
+    FIGHTER_START_DISTANCE,
+    FighterDirection,
+    FighterState,
+    FrameDelay,
+    PUSH_FRICTION,
+    FighterAttackType
+} from '../../constants/fighter.js';
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import * as control from '../../engine/InputHandler.js';
 import { rectsOverlap } from '../../utilities/collisions.js';
@@ -118,31 +124,37 @@ export class Character {
                 validFrom: [FighterState.CROUCH],
             },
             [FighterState.LIGHT_PUNCH]: {
+                attackType: FighterAttackType.PUNCH,
                 init: this.handleStandardLightAttackInit.bind(this),
                 update: this.handleLightPunchState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.MEDIUM_PUNCH]: {
+                attackType: FighterAttackType.PUNCH,
                 init: this.handleStandardMediumAttackInit.bind(this),
                 update: this.handleMediumPunchState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.HEAVY_PUNCH]: {
+                attackType: FighterAttackType.PUNCH,
                 init: this.handleStandardHeavyAttackInit.bind(this),
                 update: this.handleMediumPunchState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.LIGHT_KICK]: {
+                attackType: FighterAttackType.KICK,
                 init: this.handleStandardLightAttackInit.bind(this),
                 update: this.handleLightKickState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.MEDIUM_KICK]: {
+                attackType: FighterAttackType.KICK,
                 init: this.handleStandardMediumAttackInit.bind(this),
                 update: this.handleMediumKickState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
             },
             [FighterState.HEAVY_KICK]: {
+                attackType: FighterAttackType.KICK,
                 init: this.handleStandardHeavyAttackInit.bind(this),
                 update: this.handleMediumKickState.bind(this),
                 validFrom: [FighterState.IDLE, FighterState.WALK_FORWARD, FighterState.WALK_BACKWARD],
