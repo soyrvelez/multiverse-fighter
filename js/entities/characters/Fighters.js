@@ -477,7 +477,9 @@ export class Character {
     }
 
     updateAttackBoxCollided(time) {
+        if (!this.states[this.currentState].attackType) return;
 
+        
     }
 
     update(time, ctx, camera) {
