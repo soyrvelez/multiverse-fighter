@@ -464,6 +464,10 @@ export class Character {
         this.boxes = this.getBoxes(animation[this.animationFrame][0]);
     }
 
+    updateAttackBoxCollided(time) {
+
+    }
+
     update(time, ctx, camera) {
         this.position.x += (this.velocity.x * this.direction) * time.secondsPassed;
         this.position.y += this.velocity.y * time.secondsPassed;
@@ -471,7 +475,7 @@ export class Character {
         this.states[this.currentState].update(time, ctx);
         this.updateAnimation(time);
         this.updateStageConstraints(time, ctx, camera);
-
+        this.updateAttackBoxCollided(time);
     }
 
     drawDebugBox(ctx, camera, dimensions, baseColor) {
@@ -505,6 +509,7 @@ export class Character {
 
         // PushBox
         this.drawDebugBox(ctx, camera, Object.values(boxes.push), '#55FF55');
+
         // Hurt Boxes
         for (const hurtBox of boxes.hurt) {
             this.drawDebugBox(ctx, camera, hurtBox, '#7777FF');
