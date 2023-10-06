@@ -8,7 +8,7 @@ import {
 } from '../../constants/fighter.js';
 import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/stage.js';
 import * as control from '../../engine/InputHandler.js';
-import { rectsOverlap } from '../../utilities/collisions.js';
+import { getActualBoxDimensions, rectsOverlap } from '../../utilities/collisions.js';
 
 export class Character {
     constructor(name, playerId) {
@@ -479,7 +479,18 @@ export class Character {
     updateAttackBoxCollided(time) {
         if (!this.states[this.currentState].attackType) return;
 
-        
+        const actualHitBox = getActualBoxDimensions(this.position, this.direction, this.boxes.hit);
+
+        for (const hurt of this.opponent.boxes.hurt) {
+            const [x, y, width, height] = hurt;
+            const actualOpponentHurtBox = getActualBoxDimensions(
+                this.opponent.position,
+                this.opponent.direction,
+                { x, y, width, height },
+            );
+
+
+        }
     }
 
     update(time, ctx, camera) {
