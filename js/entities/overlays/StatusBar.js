@@ -1,6 +1,7 @@
 import { HEALTH_DAMAGE_COLOR, HEALTH_MAX_HIT_POINTS, TIME_DELAY, TIME_FLASH_DELAY, TIME_FRAME_KEYS } from '../../constants/battle.js';
 import { gameState } from '../../state/gameState.js';
 import { drawFrame } from '../../utilities/context.js';
+import { FPS } from '../../constants/game.js'
 
 export class StatusBar {
     constructor() {
@@ -13,10 +14,10 @@ export class StatusBar {
 
         this.healthBars = [{
             timer: 0,
-            hitPoints: 100,
+            hitPoints: HEALTH_MAX_HIT_POINTS,
         }, {
             timer: 0,
-            hitPoints: 30,
+            hitPoints: HEALTH_MAX_HIT_POINTS,
         }];
 
         this.frames = new Map([
@@ -112,8 +113,16 @@ export class StatusBar {
         }
     }
 
+    updateHealthBars(time) {
+        for (const index in this.healthBars) {
+            if (this.healthBars[index].hitPoints <= gameState.fighters[index].hitPoints) continue;
+            this.healthBars[index].hitPoints = Math.max(0, this.healthBars[index].hitPoints - (time.secondsPassed * FPS))
+        }
+    }
+
     update(time) {
         this.updateTime(time);
+        this.updateHealthBars(time);
     }
 
     drawFrame(ctx, frameKey, x, y, direction = 1) {
@@ -171,13 +180,13 @@ export class StatusBar {
 
     drawScores(ctx) {
         this.drawScoreLabel(ctx, 'P1', 4);
-        this.drawScore(ctx, 1, 45);
+        this.drawScore(ctx, gameState.fighters[0].score, 45);
 
         this.drawScoreLabel(ctx, 'ROD', 133);
         this.drawScore(ctx, 50000, 177);
 
         this.drawScoreLabel(ctx, 'P2', 269);
-        this.drawScore(ctx, 1, 309);
+        this.drawScore(ctx, gameState.fighters[1].score, 309);
     }
 
     draw(ctx) {
