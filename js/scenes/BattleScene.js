@@ -32,19 +32,28 @@ export class BattleScene {
     }
 
     updateFighters(time, ctx) {
+        for (const fighter of this.fighters) {
+            fighter.update(time, ctx, this.camera);
+        }
 
     }
 
     updateShadows(time, ctx) {
-
+        for (const shadow of this.shadows) {
+            shadow.update(time, ctx, this.camera);
+        }
     }
 
     updateEntities(time, ctx) {
-
+        for (const entity of this.entities) {
+            entity.update(time, ctx, this.camera);
+        }
     }
 
     updateOverlays(time, ctx) {
-
+        for (const overlay of this.overlays) {
+            overlay.update(time, ctx, this.camera);
+        }
     }
 
     update(time, ctx) {
@@ -52,9 +61,40 @@ export class BattleScene {
         this.updateShadows(time, ctx);
         this.stage.update(time);
         this.updateEntities(time, ctx);
+        this.camera.update(time);
+        this.updateOverlays(time, ctx);
+    }
+
+    drawFighters(ctx) {
+        for (const fighter of this.fighters) {
+            fighter.draw(ctx, this.camera);
+        }
+    }
+
+    drawShadows(ctx) {
+        for (const shadow of this.shadows) {
+            shadow.draw(ctx, this.camera);
+        }
+    }
+
+    drawEntities(ctx) {
+        for (const entity of this.entities) {
+            entity.draw(ctx, this.camera);
+        }
+    }
+
+    drawOverlays(ctx) {
+        for (const overlay of this.overlays) {
+            overlay.draw(ctx, this.camera);
+        }
     }
 
     draw(ctx) {
-
+        this.stage.drawBackground(ctx, this.camera);
+        this.drawShadows(ctx);
+        this.drawFighters(ctx);
+        this.drawEntities(ctx);
+        this.stage.drawForeground(ctx, this.camera);
+        this.drawOverlays(ctx);
     }
 }
