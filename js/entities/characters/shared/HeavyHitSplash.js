@@ -1,8 +1,8 @@
 import { HitSplash } from './HitSplash.js';
 
 export class HeavyHitSplash extends HitSplash {
-    constructor(x, y, playerId) {
-        super(x, y, playerId);
+    constructor(x, y, playerId, onEnd) {
+        super(x, y, playerId, onEnd);
 
         this.frames = [
             // P1 Sprite Frames

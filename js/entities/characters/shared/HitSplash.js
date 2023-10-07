@@ -1,10 +1,11 @@
 import { FRAME_TIME } from '../../../constants/game.js';
 
 export class HitSplash {
-    constructor(x, y, playerId) {
+    constructor(x, y, playerId, onEnd) {
         this.position = { x, y };
         this.image = document.querySelector('img[alt="attack-splashes"]');
         this.playerId = playerId;
+        this.onEnd = onEnd;
 
         this.frames = [];
         this.animationFrame = -1;
@@ -15,6 +16,8 @@ export class HitSplash {
         if (time.previous < this.animationTimer + 4 * FRAME_TIME) return;
         this.animationFrame += 1;
         this.animationTimer = time.previous;
+
+        if (this.animationFrame >= 4) this.onEnd(this);
     }
 
     draw(ctx, camera) {

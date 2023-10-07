@@ -8,9 +8,7 @@ import { Ryu } from '../entities/characters/Ryu.js'
 import { Shadow } from '../entities/characters/Shadow.js'
 import { gameState } from '../state/gameState.js';
 import { FighterId, FighterAttackBaseData, FighterAttackStrength } from '../constants/fighter.js';
-import { LightHitSplash } from '../entities/characters/shared/LightHitSplash.js';
-import { MediumHitSplash } from '../entities/characters/shared/MediumHitSplash.js';
-import { HeavyHitSplash } from '../entities/characters/shared/HeavyHitSplash.js';
+import { LightHitSplash, MediumHitSplash, HeavyHitSplash } from '../entities/characters/shared/index.js';
 
 export class BattleScene {
     fighters = [];
@@ -71,7 +69,11 @@ export class BattleScene {
     }
 
     addEntity(EntityClass, ...args) {
-        this.entities.push(new EntityClass(...args));
+        this.entities.push(new EntityClass(...args, this.removeEntity.bind(this)));
+    }
+
+    removeEntity(entity) {
+        this.entities = this.entities.filter((thisEntity) => thisEntity !== entity);
     }
 
     handleAttackHit(playerId, opponentId, position, strength) {
@@ -80,6 +82,8 @@ export class BattleScene {
 
         this.addEntity(this.getHitSplashClass(strength), position.x, position.y, playerId);
     }
+
+    startRound() {}
 
     updateFighters(time, ctx) {
         for (const fighter of this.fighters) {
