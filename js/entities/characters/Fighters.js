@@ -12,7 +12,7 @@ import { STAGE_FLOOR, STAGE_MID_POINT, STAGE_PADDING } from '../../constants/sta
 import * as control from '../../engine/InputHandler.js';
 import { gameState } from '../../state/gameState.js';
 import { boxOverlap, getActualBoxDimensions, rectsOverlap } from '../../utilities/collisions.js';
-import { DEBUG_drawCollisionInfo } from '../../utilities/fighterDebut.js';
+import { DEBUG_drawCollisionInfo } from '../../utilities/fighterDebug.js';
 
 export class Character {
     velocity = { x: 0, y: 0 };
@@ -583,6 +583,6 @@ export class Character {
         );
         ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-         // DEBUG_drawCollisionInfo(this, ctx, camera);
+        //  DEBUG_drawCollisionInfo(this, ctx, camera);
     }
 }
