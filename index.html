@@ -5,11 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Multiverse Fighter</title>
 </head>
 
 <body>
     <canvas width="384" height="224"></canvas>
+
+    <div id="Winner">
+        <p id="battle-winner">And the winner is...</p>
+    </div>
+    <h4>Instructions</h4>
+    <div id="Instructions">
+        <div id="p1-moves">
+            <p class="move">Up: Arrow Up</p>
+            <p class="move">Down: Arrow Down</p>
+            <p class="move">Right: Arrow Right</p>
+            <p class="move">Left: Arrow Left</p>
+            <p class="move">Light Punch: Control (Left)</p>
+            <p class="move">Medium Punch: Alt (Left)</p>
+            <p class="move">Heavy Punch: Space</p>
+            <p class="move">Light Kick: Shift (Left)</p>
+            <p class="move">Medium Kick: Z</p>
+            <p class="move">Heavy Kick: X</p>
+        </div>
+        <div id="p2-moves"></div>
+    </div>
     <!-- <img src="./img/background.png" alt="background" id="background"> -->
     <img src="./img/ken-background.png" alt="stage" id="stage">
     <img src="./img/game-ui.png" alt="game-ui" id="game-ui">

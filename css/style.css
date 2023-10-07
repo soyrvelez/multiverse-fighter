@@ -6,6 +6,9 @@ html, body {
 
 body {
     display: flex;
+    flex-direction: column;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
 }
 
 body, canvas {
@@ -13,7 +16,8 @@ body, canvas {
 }
 
 canvas {
-    width: 100%;
+    width: 85%;
+    align-self: center;
     object-fit: contain;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
@@ -21,4 +25,22 @@ canvas {
 
 img {
     display: none;
+}
+
+h4 {
+    align-self: center;
+}
+
+#Winner {
+    align-self: center;
+}
+
+#Instructions {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.move {
+    padding-right: 10px;
 }

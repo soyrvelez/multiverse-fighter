@@ -9,6 +9,7 @@ import { FighterId, FighterAttackBaseData, FighterAttackStrength } from '../cons
 import { LightHitSplash, MediumHitSplash, HeavyHitSplash, Shadow } from '../entities/characters/shared/index.js';
 
 export class BattleScene {
+    winnerField = document.querySelector('#battle-winner');
     fighters = [];
     camera = undefined;
     shadows = [];
@@ -79,7 +80,7 @@ export class BattleScene {
         this.addEntity(this.getHitSplashClass(strength), position.x, position.y, playerId);
 
         if (gameState.fighters.some(fighter => fighter.hitPoints <= 0)) {
-            this.endRound();
+            this.endRound(gameState.fighters[playerId]);
         }
 
     }
@@ -90,8 +91,14 @@ export class BattleScene {
         this.shadows = this.fighters.map(fighter => new Shadow(fighter));
     }
 
-    endRound() {
+    endRound(winner) {
         console.log(`A fighter's health is below or equal to 0`);
+        if (winner.id === 'Ryu') {
+            this.winnerField.textContent = 'The winner is Ryu';
+        } else {
+            this.winnerField.textContent = 'The winner is Ken';
+        }
+
     }
 
     updateFighters(time, ctx) {
