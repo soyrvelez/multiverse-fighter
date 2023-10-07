@@ -40,6 +40,11 @@ h5 {
     align-self: center;
 }
 
+#win-condition {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
 #Instructions {
     display: flex;
     flex-direction: row;

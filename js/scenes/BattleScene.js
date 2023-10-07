@@ -20,7 +20,7 @@ export class BattleScene {
 
         this.overlays = [
             new StatusBar(this.fighters),
-            new FpsCounter(),
+            // new FpsCounter(),
         ];
 
         this.startRound();
