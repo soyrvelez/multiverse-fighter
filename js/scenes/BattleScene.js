@@ -54,6 +54,10 @@ export class BattleScene {
         return fighterEntities;
     }
 
+    handleAttackHit() {
+
+    }
+
     updateFighters(time, ctx) {
         for (const fighter of this.fighters) {
             fighter.update(time, ctx, this.camera);
