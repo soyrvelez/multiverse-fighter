@@ -534,10 +534,6 @@ export class Character {
             const hurtName = ['head', 'body', 'feet'];
             const strength = this.states[this.currentState].attackStrength;
 
-            gameState.fighters[this.playerId].score += FighterAttackBaseData[strength].score;
-            gameState.fighters[this.opponent.playerId].hitPoints -= FighterAttackBaseData[strength].damage;
-
-
             console.log(`${gameState.fighters[this.playerId].id} has hit ${gameState.fighters[this.opponent.playerId].id}'s ${hurtName[hurtIndex]}`);
 
             this.attackStruck = true;

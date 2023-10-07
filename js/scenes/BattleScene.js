@@ -7,7 +7,10 @@ import { Ken } from '../entities/characters/Ken.js'
 import { Ryu } from '../entities/characters/Ryu.js'
 import { Shadow } from '../entities/characters/Shadow.js'
 import { gameState } from '../state/gameState.js';
-import { FighterId } from '../constants/fighter.js';
+import { FighterId, FighterAttackBaseData, FighterAttackStrength } from '../constants/fighter.js';
+import { LightHitSplash } from '../entities/characters/shared/LightHitSplash.js';
+import { MediumHitSplash } from '../entities/characters/shared/MediumHitSplash.js';
+import { HeavyHitSplash } from '../entities/characters/shared/HeavyHitSplash.js';
 
 export class BattleScene {
     fighters = [];
@@ -42,7 +45,7 @@ export class BattleScene {
     getFighterEntity(fighterState, index) {
         const FighterEntityClass = this.getFighterEntityClass(fighterState.id);
 
-        return new FighterEntityClass(index);
+        return new FighterEntityClass(index, this.handleAttackHit.bind(this));
     }
 
     getFighterEntities() {
@@ -54,8 +57,28 @@ export class BattleScene {
         return fighterEntities;
     }
 
-    handleAttackHit() {
+    getHitSplashClass(strength) {
+        switch(strength) {
+            case FighterAttackStrength.LIGHT:
+                return LightHitSplash;
+            case FighterAttackStrength.MEDIUM:
+                return MediumHitSplash;
+            case FighterAttackStrength.HEAVY:
+                return HeavyHitSplash;
+            default:
+                throw new Error('Strength not registered');
+        }
+    }
 
+    addEntity(EntityClass, ...args) {
+        this.entities.push(new EntityClass(...args));
+    }
+
+    handleAttackHit(playerId, opponentId, position, strength) {
+        gameState.fighters[playerId].score += FighterAttackBaseData[strength].score;
+        gameState.fighters[opponentId].hitPoints -= FighterAttackBaseData[strength].damage;
+
+        this.addEntity(this.getHitSplashClass(strength), position.x, position.y, playerId);
     }
 
     updateFighters(time, ctx) {
