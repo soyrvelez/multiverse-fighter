@@ -3,12 +3,10 @@ import { KenStage } from '../entities/stage/KenStage.js';
 import { StatusBar } from '../entities/overlays/StatusBar.js';
 import { FpsCounter } from '../entities/overlays/FpsCounter.js';
 import { STAGE_MID_POINT, STAGE_PADDING } from '../constants/stage.js';
-import { Ken } from '../entities/characters/Ken.js'
-import { Ryu } from '../entities/characters/Ryu.js'
-import { Shadow } from '../entities/characters/Shadow.js'
+import { Ken, Ryu } from '../entities/characters/index.js'
 import { gameState } from '../state/gameState.js';
 import { FighterId, FighterAttackBaseData, FighterAttackStrength } from '../constants/fighter.js';
-import { LightHitSplash, MediumHitSplash, HeavyHitSplash } from '../entities/characters/shared/index.js';
+import { LightHitSplash, MediumHitSplash, HeavyHitSplash, Shadow } from '../entities/characters/shared/index.js';
 
 export class BattleScene {
     fighters = [];
@@ -19,18 +17,16 @@ export class BattleScene {
     constructor() {
         this.stage = new KenStage();
 
-        this.fighters = this.getFighterEntities();
-        this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - 192, 16, this.fighters);
-        this.shadows = this.fighters.map(fighter => new Shadow(fighter));
-
         this.overlays = [
             new StatusBar(this.fighters),
             new FpsCounter(),
         ];
+
+        this.startRound();
     }
 
     getFighterEntityClass(id) {
-        switch(id) {
+        switch (id) {
             case FighterId.RYU:
                 return Ryu;
             case FighterId.KEN:
@@ -56,7 +52,7 @@ export class BattleScene {
     }
 
     getHitSplashClass(strength) {
-        switch(strength) {
+        switch (strength) {
             case FighterAttackStrength.LIGHT:
                 return LightHitSplash;
             case FighterAttackStrength.MEDIUM:
@@ -83,7 +79,11 @@ export class BattleScene {
         this.addEntity(this.getHitSplashClass(strength), position.x, position.y, playerId);
     }
 
-    startRound() {}
+    startRound() {
+        this.fighters = this.getFighterEntities();
+        this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - 192, 16, this.fighters);
+        this.shadows = this.fighters.map(fighter => new Shadow(fighter));
+    }
 
     updateFighters(time, ctx) {
         for (const fighter of this.fighters) {
