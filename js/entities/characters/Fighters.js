@@ -583,6 +583,6 @@ export class Character {
         );
         ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-        // DEBUG_drawCollisionInfo(this, ctx, camera);
+        DEBUG_drawCollisionInfo(this, ctx, camera);
     }
 }

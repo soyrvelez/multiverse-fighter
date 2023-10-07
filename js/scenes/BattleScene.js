@@ -77,12 +77,21 @@ export class BattleScene {
         gameState.fighters[opponentId].hitPoints -= FighterAttackBaseData[strength].damage;
 
         this.addEntity(this.getHitSplashClass(strength), position.x, position.y, playerId);
+
+        if (gameState.fighters.some(fighter => fighter.hitPoints <= 0)) {
+            this.endRound();
+        }
+
     }
 
     startRound() {
         this.fighters = this.getFighterEntities();
         this.camera = new Camera(STAGE_MID_POINT + STAGE_PADDING - 192, 16, this.fighters);
         this.shadows = this.fighters.map(fighter => new Shadow(fighter));
+    }
+
+    endRound() {
+        console.log(`A fighter's health is below or equal to 0`);
     }
 
     updateFighters(time, ctx) {
