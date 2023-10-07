@@ -29,18 +29,39 @@ img {
 
 h4 {
     align-self: center;
+    color: #FF0000;
 }
 
-#Winner {
+h5 {
+    color: #FF0000;
+}
+
+#Winner, #win-condition {
     align-self: center;
 }
 
 #Instructions {
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#p1-moves, #p2-moves {
+    display: flex;
     flex-direction: column;
-    align-self: center;
+    align-items: center;
 }
 
 .move {
-    padding-right: 10px;
+    font-size: .725rem;
+}
+
+#logo {
+    align-self: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+#logo-image {
+    display: block;
 }
