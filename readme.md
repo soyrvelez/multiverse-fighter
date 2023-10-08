@@ -65,7 +65,7 @@ export function rectsOverlap(
 
 All of the animated entities for the game are sourced from their respective sprite sheet. Take a look at the following image. This is what half of the frame's a single Ryu's move looks like
 
-![RyuForward](img\docs\ryu-forward.png)
+![RyuForward](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/ryu-forward.png?sanitize=true)
 
 
 Sprite Sheets allow us to save a bunch of time and instead of extracting each of these frames' graphics using an image editor, we can use the x, y coordinates and dimensions for each frame and store them into an array inside a Map object. By using Map's .get method we can easily query frames by their name (ie., 'idle-1'), using string literals that take the corresponding state ('idle') and iterate through their sequential frame #'s.
@@ -87,9 +87,9 @@ this.frames = new Map([
 
 ## Unsolved Problems
 
-- **Transitioning to an end scene:** I created end scene images that I wanted to draw as a takeover to the canvas' dimensions if a fighter's hitpoints reached 0 or lower in the BattleScene. However I wasn't able to figure out the right function to clear the canvas and draw this without crashing the game. If you want to continue building the game to include these end scenes you can reference this [image](img\ryu-wins-ga.png) in the img folder for testing. I even made a pixel-art style version of General Assembly's logo 🥲
+- **Transitioning to an end scene:** I created end scene images that I wanted to draw as a takeover to the canvas' dimensions if a fighter's hitpoints reached 0 or lower in the BattleScene. However I wasn't able to figure out the right function to clear the canvas and draw this without crashing the game. If you want to continue building the game to include these end scenes you can reference this [image](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/ryu-wins-ga.png) in the img folder for testing. I even made a pixel-art style version of General Assembly's logo 🥲
 
-![EndScene](img\ryu-wins-ga.png)
+![EndScene](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/ryu-wins-ga.png?sanitize=true)
 
 - **Troubleshooting Ryu's jump forward/backward animation:** One or more frame's in Ryu's jump + direction animations have errors, but it's hard to troubleshoot without access to the original game's information.
 
@@ -98,23 +98,23 @@ this.frames = new Map([
 
 ### Character Idle and Attack Animations
 
-![IdleAndAtack](img\docs\chracter-animation.gif)
+![IdleAndAtack](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/chracter-animation.gif?sanitize=true)
 
 ### Character Movement, Flag And Flashing Counter Animations
 
-![MovementAndFlag](img\docs\flag-animation.gif)
+![MovementAndFlag](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/flag-animation.gif?sanitize=true)
 
 ### Background Character Animations
 
-![BackgroundCharacters](img\docs\bg-characters.gif)
+![BackgroundCharacters](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/bg-characters.gif?sanitize=true)
 
 ### Health Bar, Player Score, Attack Srpite and Critical Health KO Flashing Animations
 
-![Damage](img\docs\damage.gif)
+![Damage](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/damage.gif?sanitize=true)
 
 ### Debug Features
 
-![Damage](img\docs\debug-features.gif)
+![Damage](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/debug-features.gif?sanitize=true)
 
 ---
 
