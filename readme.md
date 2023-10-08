@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-![GameOverview](img\docs\game-overview.png)
+![GameOverview](https://raw.github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/game-overview.png?sanitize=true)
 
 This project creates a playable browser-based version of the arcade version of Street Fighter II with Ken and Ryu as playable characters. This game utilizes the HTML canvas element and "vanilla" javascript to handle user input and animations.
 
