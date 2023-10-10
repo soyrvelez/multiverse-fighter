@@ -89,7 +89,7 @@ this.frames = new Map([
 
 - **Transitioning to an end scene:** I created end scene images that I wanted to draw as a takeover to the canvas' dimensions if a fighter's hitpoints reached 0 or lower in the BattleScene. However I wasn't able to figure out the right function to clear the canvas and draw this without crashing the game. If you want to continue building the game to include these end scenes you can reference this [image](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/ryu-wins-ga.png) in the img folder for testing. I even made a pixel-art style version of General Assembly's logo 🥲
 
-![EndScene](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/docs/ryu-wins-ga.png?sanitize=true)
+![EndScene](https://github.com/soyrvelez/multiverse-fighter/blob/main/img/ryu-wins-ga.png?sanitize=true)
 
 - **Troubleshooting Ryu's jump forward/backward animation:** One or more frame's in Ryu's jump + direction animations have errors, but it's hard to troubleshoot without access to the original game's information.
 
