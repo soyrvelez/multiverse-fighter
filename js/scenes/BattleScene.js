@@ -1,12 +1,11 @@
-import { Camera } from '../engine/Camera.js';
-import { KenStage } from '../entities/stage/KenStage.js';
-import { StatusBar } from '../entities/overlays/StatusBar.js';
-import { FpsCounter } from '../entities/overlays/FpsCounter.js';
+import { FighterAttackBaseData, FighterAttackStrength, FighterId } from '../constants/fighter.js';
 import { STAGE_MID_POINT, STAGE_PADDING } from '../constants/stage.js';
-import { Ken, Ryu } from '../entities/characters/index.js'
+import { Camera } from '../engine/Camera.js';
+import { Ken, Ryu } from '../entities/characters/index.js';
+import { HeavyHitSplash, LightHitSplash, MediumHitSplash, Shadow } from '../entities/characters/shared/index.js';
+import { StatusBar } from '../entities/overlays/StatusBar.js';
+import { KenStage } from '../entities/stage/KenStage.js';
 import { gameState } from '../state/gameState.js';
-import { FighterId, FighterAttackBaseData, FighterAttackStrength } from '../constants/fighter.js';
-import { LightHitSplash, MediumHitSplash, HeavyHitSplash, Shadow } from '../entities/characters/shared/index.js';
 
 export class BattleScene {
     winnerField = document.querySelector('#battle-winner');
@@ -24,6 +23,9 @@ export class BattleScene {
         ];
 
         this.startRound();
+
+        this.gameOverImage = document.querySelector('#ryu-wins');
+        this.isGameOver = false;
     }
 
     getFighterEntityClass(id) {
@@ -93,10 +95,13 @@ export class BattleScene {
 
     endRound(winner) {
         console.log(`A fighter's health is below or equal to 0`);
+        this.isGameOver = true;
         if (winner.id === 'Ryu') {
             this.winnerField.textContent = 'The winner is Ryu';
+            this.gameOverImage = document.querySelector('#ryu-wins');
         } else {
             this.winnerField.textContent = 'The winner is Ken';
+            this.gameOverImage = document.querySelector('#ken-wins');
         }
 
     }
@@ -127,6 +132,9 @@ export class BattleScene {
     }
 
     update(time, ctx) {
+        if (this.isGameOver) {
+            return;
+        }
         this.updateFighters(time, ctx);
         this.updateShadows(time, ctx);
         this.stage.update(time);
@@ -159,12 +167,22 @@ export class BattleScene {
         }
     }
 
+    drawGameOverImage(ctx) {
+        let aspectRatio = this.gameOverImage.width / this.gameOverImage.height;
+        let newHeight = ctx.canvas.width / aspectRatio;
+        ctx.drawImage(this.gameOverImage, 0, (ctx.canvas.height - newHeight) / 2, ctx.canvas.width, newHeight);
+    }
+
     draw(ctx) {
-        this.stage.drawBackground(ctx, this.camera);
-        this.drawShadows(ctx);
-        this.drawFighters(ctx);
-        this.drawEntities(ctx);
-        this.stage.drawForeground(ctx, this.camera);
-        this.drawOverlays(ctx);
+        if (this.isGameOver) {
+            this.drawGameOverImage(ctx);
+        } else {
+            this.stage.drawBackground(ctx, this.camera);
+            this.drawShadows(ctx);
+            this.drawFighters(ctx);
+            this.drawEntities(ctx);
+            this.stage.drawForeground(ctx, this.camera);
+            this.drawOverlays(ctx);
+        }
     }
 }
