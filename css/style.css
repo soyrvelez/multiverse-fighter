@@ -41,6 +41,10 @@ h5 {
     color: #FF0000;
 }
 
+span {
+    color: #ff1010;
+}
+
 #Winner, #win-condition {
     align-self: center;
 }
