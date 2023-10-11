@@ -28,6 +28,10 @@ img {
     display: none;
 }
 
+h1 {
+    color: #FF0000;
+}
+
 h4 {
     align-self: center;
     color: #FF0000;
